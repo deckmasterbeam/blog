@@ -1,0 +1,29 @@
+---
+const { pathname } = Astro.url;
+---
+
+<nav>
+  <a href="/" class={pathname === '/' ? 'active' : ''}>Home</a>
+  <a href="/blog" class={pathname.startsWith('/blog') ? 'active' : ''}>Blog</a>
+  <a href="/projects/sniffies" class={pathname.startsWith('/projects') ? 'active' : ''}>Projects</a>
+</nav>
+
+<style>
+  nav {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+  }
+
+  a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: var(--color-muted);
+  }
+
+  a.active,
+  a:hover {
+    color: var(--color-text);
+    opacity: 1;
+  }
+</style>

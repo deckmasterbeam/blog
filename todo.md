@@ -1,0 +1,13 @@
+TODO:
+- favicon sucks
+- work on styling
+- think about the navigation/header
+   - github projects page, links to all blog posts about the project. Support project linking via tags?
+   - link to linkedin
+   - link to insta
+- post about linkedin extension
+- post about zip game
+- delete post for unemployment retro until its ready
+- update sniffies project post to include ios native installation support
+- figure out how to expose more complicate functionality, like the ios native install, in the astro md file or the blog support
+- deploy to vercel and use the custom domain
