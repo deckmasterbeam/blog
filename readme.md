@@ -30,37 +30,43 @@ A personal site built with [Astro](https://astro.build) and deployed on [Vercel]
 ## Project Structure
 
 ```
-my-site/
+blog/
 ├── src/
 │   ├── pages/
-│   │   ├── index.astro              # Homepage / about
+│   │   ├── index.astro              # Homepage
 │   │   ├── blog/
-│   │   │   ├── index.astro          # Blog listing page
-│   │   │   └── [slug].astro         # Dynamic route → individual posts
-│   │   └── projects/
-│   │       ├── sniffies/
-│   │       │   └── index.astro      # Sniffies landing page
-│   │       └── [future-project]/    # Add a folder per new project
+│   │   │   ├── index.astro          # Lists posts tagged "blog"
+│   │   │   └── [slug].astro         # Individual blog/release posts
+│   │   ├── projects/
+│   │   │   ├── index.astro          # Lists posts tagged "projectLanding"
+│   │   │   └── [slug].astro         # Project landing page + its releases
+│   │   └── releases/
+│   │       └── index.astro          # Lists all posts tagged "release"
 │   │
 │   ├── content/
-│   │   ├── blog/                    # Blog posts as Markdown/MDX files
+│   │   ├── blog/                    # All content as Markdown/MDX files
 │   │   │   ├── unemployment-retro.md
-│   │   │   └── sniffies-v1-release.md
+│   │   │   ├── linkedin-extension-v1-release.md
+│   │   │   └── ...
 │   │   └── config.ts                # Content collection schema
 │   │
 │   ├── components/
 │   │   ├── Nav.astro
 │   │   ├── Footer.astro
-│   │   ├── PostCard.astro           # Card used on the blog listing page
-│   │   └── ui/                      # React island components
-│   │       └── DemoWidget.tsx       # e.g. interactive project demos
+│   │   └── PostCard.astro           # Card for blog, project, and release listings
 │   │
-│   └── layouts/
-│       ├── Base.astro               # HTML shell: head, nav, footer
-│       ├── BlogPost.astro           # Wraps individual posts (date, reading time, etc.)
-│       └── ProjectPage.astro        # Wraps project landing pages (hero, CTA, etc.)
+│   ├── layouts/
+│   │   ├── Base.astro               # HTML shell: head, nav, footer
+│   │   ├── BlogPost.astro           # Wraps individual posts
+│   │   └── ProjectPage.astro        # Wraps project landing pages
+│   │
+│   ├── styles/
+│   │   └── global.css
+│   │
+│   └── types/
+│       └── post.ts                  # Discriminated union types for PostCard props
 │
-├── public/                          # Static assets: images, favicon, OG images
+├── public/                          # Static assets: favicon, OG images
 ├── astro.config.mjs
 ├── package.json
 └── tsconfig.json
@@ -72,29 +78,65 @@ my-site/
 
 ### Content Collections (`src/content/blog/`)
 
-Astro's built-in system for managing Markdown content. Each post is a `.md` or `.mdx` file with frontmatter:
+All content lives in one collection as `.md` or `.mdx` files. The `tags` field determines where each post appears in the site. Schema is defined in `config.ts` so frontmatter is type-safe.
 
+### Tag Taxonomy
+
+Tags drive routing and listing. Every post should have at least one of the following primary tags:
+
+| Tag | Where it appears | Route |
+|---|---|---|
+| `blog` | Blog listing | `/blog` |
+| `projectLanding` | Projects listing | `/projects` |
+| `release` | Releases listing + project landing page | `/releases` |
+
+Each project also gets its own **project tag** (e.g. `linkedinExtension`, `sniffies`). Apply it to both the project's landing page and all its release posts — this is how the project page knows which releases to list.
+
+Example frontmatter for each type:
+
+**Blog post**
 ```md
 ---
 title: "Nine Months: A Job Search Retrospective"
 date: 2026-06-17
-tags: [personal, career]
+tags: [blog]
 description: "From layoff to Apple offer — what the gap year actually looked like."
 draft: false
 ---
-
-Post content goes here...
 ```
 
-`config.ts` defines the schema so frontmatter fields are type-safe. The `[slug].astro` dynamic route reads from the collection and renders each post using the `BlogPost` layout.
+**Project landing page**
+```md
+---
+title: "LinkedIn Extension"
+date: 2026-06-01
+tags: [projectLanding, linkedinExtension]
+description: "A browser extension that restores LinkedIn profile hover cards."
+draft: false
+---
+```
 
-### Project Landing Pages (`src/pages/projects/`)
+**Release post**
+```md
+---
+title: "LinkedIn Extension v1"
+date: 2026-06-24
+tags: [release, linkedinExtension]
+description: "What shipped in v1 and what's next."
+draft: false
+repo: https://github.com/you/linkedin-extension
+---
+```
 
-These live in `pages/` rather than `content/` because they're fully custom-designed pages, not Markdown documents. Each project gets its own folder with an `index.astro`. Use the `ProjectPage` layout for consistent chrome (hero section, nav, footer) while keeping full layout control per project.
+The `repo` field is optional and only meaningful on release posts. When present, PostCard renders a "View repo" link.
+
+### Project Landing Pages
+
+Project landing pages are Markdown posts tagged `projectLanding` (not static `.astro` files). They're served at `/projects/[slug]` and automatically list all release posts that share the project's tag. No manual wiring needed — just tag them consistently.
 
 ### Release Announcements
 
-Just blog posts — no special structure needed. Use a `tags: [release]` frontmatter field. The blog listing page can filter by tag to surface a releases-only view if useful later.
+Release posts are tagged `release` plus the project tag. They appear on `/releases` (all releases) and on the relevant project landing page.
 
 ### React Islands
 

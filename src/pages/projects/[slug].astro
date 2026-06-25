@@ -1,0 +1,121 @@
+---
+import { getCollection } from 'astro:content';
+import { marked } from 'marked';
+import ProjectPage from '../../layouts/ProjectPage.astro';
+import PostCard from '../../components/PostCard.astro';
+
+export async function getStaticPaths() {
+  const projectPosts = await getCollection('projects', ({ data }) => !data.draft);
+  const allReleases = await getCollection('releases', ({ data }) => !data.draft);
+
+  return projectPosts.map(post => {
+    const releases = allReleases
+      .filter(r => r.data.projectTag === post.data.projectTag)
+      .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+    return {
+      params: { slug: post.id.replace(/\.(md|mdx)$/, '') },
+      props: { post, releases },
+    };
+  });
+}
+
+const { post, releases } = Astro.props;
+
+let readmeHtml = '';
+if (post.data.repo) {
+  const rawUrl = post.data.repo
+    .replace('https://github.com', 'https://raw.githubusercontent.com')
+    .replace(/\/$/, '') + '/main/README.md';
+  const res = await fetch(rawUrl);
+  if (res.ok) {
+    readmeHtml = await marked(await res.text());
+  }
+}
+---
+
+<ProjectPage title={post.data.title} description={post.data.description}>
+  <header class="project-header">
+    <h1>{post.data.title}</h1>
+    {post.data.site && (
+      <a href={post.data.site} target="_blank" rel="noopener noreferrer">Visit site</a>
+    )}
+    {post.data.repo && (
+      <a href={post.data.repo} target="_blank" rel="noopener noreferrer">View repo</a>
+    )}
+  </header>
+  {releases.length > 0 && (
+    <section class="releases">
+      <h2>Releases</h2>
+      <div class="release-cards">
+        {releases.map((r, i) => (
+          <PostCard
+            type="release"
+            variant={i === 0 ? 'card' : 'card-sm'}
+            title={r.data.title}
+            date={r.data.date}
+            description={r.data.description}
+            slug={r.id.replace(/\.(md|mdx)$/, '')}
+            repo={r.data.repo}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+  {readmeHtml && (
+    <div class="readme" set:html={readmeHtml} />
+  )}
+</ProjectPage>
+
+<style>
+  .project-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .project-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .project-header a {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+
+  .releases {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .releases h2 {
+    font-size: 1.1rem;
+    margin: 0 0 1rem;
+  }
+
+  .release-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .readme :global(h1) { font-size: 1.5rem; margin-top: 2rem; }
+  .readme :global(h2) { font-size: 1.25rem; margin-top: 1.75rem; }
+  .readme :global(h3) { font-size: 1.05rem; margin-top: 1.5rem; }
+  .readme :global(p) { margin: 1rem 0; }
+  .readme :global(ul), .readme :global(ol) { padding-left: 1.5rem; }
+  .readme :global(img) { max-width: 100%; }
+  .readme :global(pre) {
+    background: #f3f4f6;
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+  .readme :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+  }
+</style>

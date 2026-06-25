@@ -1,25 +1,58 @@
 ---
-interface Props {
-  title: string;
-  date: Date;
-  description: string;
-  slug: string;
-}
+import type { Post } from '../types/post';
 
-const { title, date, description, slug } = Astro.props;
+type Props = Post & { variant?: 'list' | 'card' | 'card-sm' };
+
+const props = Astro.props;
+const { title, date, description, slug, variant = 'list' } = props;
 const formatted = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const href = props.type === 'project'
+  ? `/projects/${slug}`
+  : props.type === 'release'
+  ? `/releases/${slug}`
+  : `/blog/${slug}`;
 ---
 
-<article>
+<article class={variant}>
   <time datetime={date.toISOString()}>{formatted}</time>
-  <h2><a href={`/blog/${slug}`}>{title}</a></h2>
+  <h2><a href={href}>{title}</a></h2>
   <p>{description}</p>
 </article>
 
 <style>
-  article {
+  article.list {
     padding: 1.5rem 0;
     border-bottom: 1px solid var(--color-border);
+  }
+
+  article.card {
+    padding: 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+  }
+
+  article.card-sm {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  article.card-sm p,
+  article.card-sm .repo-link {
+    display: none;
+  }
+
+  article.card-sm h2 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  article.card-sm time {
+    flex-shrink: 0;
   }
 
   time {
@@ -42,8 +75,9 @@ const formatted = date.toLocaleDateString('en-US', { year: 'numeric', month: 'lo
   }
 
   p {
-    margin: 0;
+    margin: 0 0 0.5rem;
     color: var(--color-muted);
     font-size: 0.95rem;
   }
+
 </style>
