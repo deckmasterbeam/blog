@@ -10,12 +10,22 @@ import InstallButton from '../../components/ui/InstallButton.astro';
 
 ## Installation
 
-Sniffies is distributed as a userscript. To run it you need a userscript manager:
+There are two builds: a userscript for iOS and a Chrome extension for desktop.
 
-- **iOS (Safari):** Install the [Userscripts](https://apps.apple.com/us/app/userscripts/id1463298887) app, then enable the Safari extension in Settings → Safari → Extensions.
-- **Desktop (Chrome/Firefox):** Install the Chrome extension build
-  - If you want to install this userscript instead of the Chrome extension build, install [Tampermonkey](https://www.tampermonkey.net/).
+### iOS (Safari)
 
-Once your userscript manager is set up, tap the button below and it will prompt you to install.
+1. Install the [Userscripts](https://apps.apple.com/us/app/userscripts/id1463298887) app
+2. Enable it in Settings → Safari → Extensions
+3. Tap the button below — the Userscripts app will intercept and prompt you to install
 
-<InstallButton href="/sniffies.user.js" label="Install Sniffies Project Userscript" />
+<InstallButton href="https://github.com/deckmasterbeam/SniffiesProjects/releases/download/latest-userscript/sniffies-tools.user.js" label="Install iOS Userscript" />
+
+### Chrome (Desktop)
+
+The extension isn't on the Chrome Web Store, so installation is manual:
+
+1. Download the zip below and unzip it
+2. Go to `chrome://extensions` and enable **Developer mode** (top right)
+3. Click **Load unpacked** and select the unzipped folder
+
+<InstallButton href="https://github.com/deckmasterbeam/SniffiesProjects/releases/download/latest-chrome/sniffies-chrome.zip" label="Download Chrome Extension" />
