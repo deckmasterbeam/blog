@@ -1,22 +1,21 @@
 ---
-title: "Sniffies v1"
+title: "Sniffies Projects v1"
 date: 2026-06-24
 description: "What shipped in v1 and what's next."
-draft: true
-projectTag: sniffies
+draft: false
+projectTag: sniffiesProjects
 ---
 
-import InstallButton from '../../components/ui/InstallButton.tsx';
-
-TODO: release notes
+import InstallButton from '../../components/ui/InstallButton.astro';
 
 ## Installation
 
 Sniffies is distributed as a userscript. To run it you need a userscript manager:
 
 - **iOS (Safari):** Install the [Userscripts](https://apps.apple.com/us/app/userscripts/id1463298887) app, then enable the Safari extension in Settings → Safari → Extensions.
-- **Desktop (Chrome/Firefox):** Install [Tampermonkey](https://www.tampermonkey.net/).
+- **Desktop (Chrome/Firefox):** Install the Chrome extension build
+  - If you want to install this userscript instead of the Chrome extension build, install [Tampermonkey](https://www.tampermonkey.net/).
 
 Once your userscript manager is set up, tap the button below and it will prompt you to install.
 
-<InstallButton href="/sniffies.user.js" client:load />
+<InstallButton href="/sniffies.user.js" label="Install Sniffies Project Userscript" />

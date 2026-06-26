@@ -1,0 +1,27 @@
+---
+interface Props {
+  href: string;
+  label?: string;
+}
+
+const { href, label = 'Install Userscript' } = Astro.props;
+---
+
+<a href={href} class="install-button">{label}</a>
+
+<style>
+  .install-button {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .install-button:hover {
+    opacity: 0.8;
+  }
+</style>
