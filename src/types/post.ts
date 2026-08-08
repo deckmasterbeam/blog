@@ -1,5 +1,5 @@
 export type BlogPost = {
-  type: 'blog';
+  type: "blog";
   title: string;
   date: Date;
   description: string;
@@ -7,7 +7,7 @@ export type BlogPost = {
 };
 
 export type ReleasePost = {
-  type: 'release';
+  type: "release";
   title: string;
   date: Date;
   description: string;
@@ -16,7 +16,7 @@ export type ReleasePost = {
 };
 
 export type ProjectPost = {
-  type: 'project';
+  type: "project";
   title: string;
   date: Date;
   description: string;

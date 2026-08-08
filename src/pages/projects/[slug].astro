@@ -1,20 +1,27 @@
 ---
-import { getCollection } from 'astro:content';
-import { marked } from 'marked';
-import ProjectPage from '../../layouts/ProjectPage.astro';
-import PostCard from '../../components/PostCard.astro';
+import { getCollection } from "astro:content";
+import { marked } from "marked";
+import ProjectPage from "../../layouts/ProjectPage.astro";
+import PostCard from "../../components/PostCard.astro";
+import ContentWarningGate from "../../components/ContentWarningGate.astro";
 
 export async function getStaticPaths() {
-  const projectPosts = await getCollection('projects', ({ data }) => !data.draft);
-  const allReleases = await getCollection('releases', ({ data }) => !data.draft);
+  const projectPosts = await getCollection(
+    "projects",
+    ({ data }) => !data.draft,
+  );
+  const allReleases = await getCollection(
+    "releases",
+    ({ data }) => !data.draft,
+  );
 
-  return projectPosts.map(post => {
+  return projectPosts.map((post) => {
     const releases = allReleases
-      .filter(r => r.data.projectTag === post.data.projectTag)
+      .filter((r) => r.data.projectTag === post.data.projectTag)
       .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
     return {
-      params: { slug: post.id.replace(/\.(md|mdx)$/, '') },
+      params: { slug: post.id.replace(/\.(md|mdx)$/, "") },
       props: { post, releases },
     };
   });
@@ -22,11 +29,12 @@ export async function getStaticPaths() {
 
 const { post, releases } = Astro.props;
 
-let readmeHtml = '';
+let readmeHtml = "";
 if (post.data.repo) {
-  const rawUrl = post.data.repo
-    .replace('https://github.com', 'https://raw.githubusercontent.com')
-    .replace(/\/$/, '') + '/main/README.md';
+  const rawUrl =
+    post.data.repo
+      .replace("https://github.com", "https://raw.githubusercontent.com")
+      .replace(/\/$/, "") + "/main/README.md";
   const res = await fetch(rawUrl);
   if (res.ok) {
     readmeHtml = await marked(await res.text());
@@ -37,34 +45,44 @@ if (post.data.repo) {
 <ProjectPage title={post.data.title} description={post.data.description}>
   <header class="project-header">
     <h1>{post.data.title}</h1>
-    {post.data.site && (
-      <a href={post.data.site} target="_blank" rel="noopener noreferrer">Visit site</a>
-    )}
-    {post.data.repo && (
-      <a href={post.data.repo} target="_blank" rel="noopener noreferrer">View repo</a>
-    )}
+    {
+      post.data.site && (
+        <a href={post.data.site} target="_blank" rel="noopener noreferrer">
+          Visit site
+        </a>
+      )
+    }
+    {
+      post.data.repo && (
+        <a href={post.data.repo} target="_blank" rel="noopener noreferrer">
+          View repo
+        </a>
+      )
+    }
   </header>
-  {releases.length > 0 && (
-    <section class="releases">
-      <h2>Releases</h2>
-      <div class="release-cards">
-        {releases.map((r, i) => (
-          <PostCard
-            type="release"
-            variant={i === 0 ? 'card' : 'card-sm'}
-            title={r.data.title}
-            date={r.data.date}
-            description={r.data.description}
-            slug={r.id.replace(/\.(md|mdx)$/, '')}
-            repo={r.data.repo}
-          />
-        ))}
-      </div>
-    </section>
-  )}
-  {readmeHtml && (
-    <div class="readme" set:html={readmeHtml} />
-  )}
+  <ContentWarningGate warningKey={post.data.contentWarning}>
+    {
+      releases.length > 0 && (
+        <section class="releases">
+          <h2>Releases</h2>
+          <div class="release-cards">
+            {releases.map((r, i) => (
+              <PostCard
+                type="release"
+                variant={i === 0 ? "card" : "card-sm"}
+                title={r.data.title}
+                date={r.data.date}
+                description={r.data.description}
+                slug={r.id.replace(/\.(md|mdx)$/, "")}
+                repo={r.data.repo}
+              />
+            ))}
+          </div>
+        </section>
+      )
+    }
+    {readmeHtml && <div class="readme" set:html={readmeHtml} />}
+  </ContentWarningGate>
 </ProjectPage>
 
 <style>
@@ -102,12 +120,28 @@ if (post.data.repo) {
     gap: 0.75rem;
   }
 
-  .readme :global(h1) { font-size: 1.5rem; margin-top: 2rem; }
-  .readme :global(h2) { font-size: 1.25rem; margin-top: 1.75rem; }
-  .readme :global(h3) { font-size: 1.05rem; margin-top: 1.5rem; }
-  .readme :global(p) { margin: 1rem 0; }
-  .readme :global(ul), .readme :global(ol) { padding-left: 1.5rem; }
-  .readme :global(img) { max-width: 100%; }
+  .readme :global(h1) {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+  }
+  .readme :global(h2) {
+    font-size: 1.25rem;
+    margin-top: 1.75rem;
+  }
+  .readme :global(h3) {
+    font-size: 1.05rem;
+    margin-top: 1.5rem;
+  }
+  .readme :global(p) {
+    margin: 1rem 0;
+  }
+  .readme :global(ul),
+  .readme :global(ol) {
+    padding-left: 1.5rem;
+  }
+  .readme :global(img) {
+    max-width: 100%;
+  }
   .readme :global(pre) {
     background: #f3f4f6;
     padding: 1rem;

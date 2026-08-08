@@ -3,10 +3,14 @@ const { pathname } = Astro.url;
 ---
 
 <nav>
-  <a href="/" class={pathname === '/' ? 'active' : ''}>Home</a>
-  <a href="/blog" class={pathname.startsWith('/blog') ? 'active' : ''}>Blog</a>
-  <a href="/projects" class={pathname.startsWith('/projects') ? 'active' : ''}>Projects</a>
-  <a href="/releases" class={pathname.startsWith('/releases') ? 'active' : ''}>Releases</a>
+  <a href="/" class={pathname === "/" ? "active" : ""}>Home</a>
+  <a href="/blog" class={pathname.startsWith("/blog") ? "active" : ""}>Blog</a>
+  <a href="/projects" class={pathname.startsWith("/projects") ? "active" : ""}
+    >Projects</a
+  >
+  <a href="/releases" class={pathname.startsWith("/releases") ? "active" : ""}
+    >Releases</a
+  >
 </nav>
 
 <style>

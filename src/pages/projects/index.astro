@@ -1,23 +1,26 @@
 ---
-import { getCollection } from 'astro:content';
-import Base from '../../layouts/Base.astro';
-import PostCard from '../../components/PostCard.astro';
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PostCard from "../../components/PostCard.astro";
 
-const projects = (await getCollection('projects', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const projects = (
+  await getCollection("projects", ({ data }) => !data.draft)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <Base title="Projects">
   <h1>Projects</h1>
-  {projects.map(post => (
-    <PostCard
-      type="project"
-      title={post.data.title}
-      date={post.data.date}
-      description={post.data.description}
-      slug={post.id.replace(/\.(md|mdx)$/, '')}
-    />
-  ))}
+  {
+    projects.map((post) => (
+      <PostCard
+        type="project"
+        title={post.data.title}
+        date={post.data.date}
+        description={post.data.description}
+        slug={post.id.replace(/\.(md|mdx)$/, "")}
+      />
+    ))
+  }
 </Base>
 
 <style>

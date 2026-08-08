@@ -1,0 +1,135 @@
+---
+import {
+  contentWarnings,
+  type ContentWarningKey,
+} from "../content/contentWarnings";
+
+interface Props {
+  warningKey?: ContentWarningKey;
+}
+
+const { warningKey } = Astro.props;
+const warning = warningKey ? contentWarnings[warningKey] : undefined;
+const storageKey = warningKey ? `cw-ack:${warningKey}` : "";
+---
+
+<div class="cw-gate" data-active={warning ? "true" : "false"}>
+  <script is:inline data-key={storageKey}>
+    (function () {
+      var gate = document.currentScript.parentElement;
+      if (gate.dataset.active !== "true") return;
+      try {
+        if (localStorage.getItem(document.currentScript.dataset.key) === "1") {
+          gate.classList.add("cw-ack");
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  {
+    warning && (
+      <div class="cw-overlay">
+        <div class="cw-box">
+          <h2>{warning.title}</h2>
+          {warning.message.map((line) => (
+            <p>{line}</p>
+          ))}
+          <div class="cw-actions">
+            <a href="/" class="cw-back">
+              Go back
+            </a>
+            <a
+              href="https://www.youtube.com/watch?v=4gnntMvMgx4"
+              class="cw-back"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Go to Guilt Trip by PUP
+            </a>
+            <button type="button" class="cw-continue">
+              I understand, continue
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  <div class="cw-content">
+    <slot />
+  </div>
+
+  <script is:inline data-key={storageKey}>
+    (function () {
+      var gate = document.currentScript.parentElement;
+      if (gate.dataset.active !== "true") return;
+      var key = document.currentScript.dataset.key;
+      var btn = gate.querySelector(".cw-continue");
+      if (!btn) return;
+      btn.addEventListener("click", function () {
+        try {
+          localStorage.setItem(key, "1");
+        } catch (e) {}
+        gate.classList.add("cw-ack");
+      });
+    })();
+  </script>
+</div>
+
+<style>
+  .cw-gate[data-active="true"] .cw-content {
+    display: none;
+  }
+
+  .cw-gate.cw-ack .cw-content {
+    display: block;
+  }
+
+  .cw-gate.cw-ack .cw-overlay {
+    display: none;
+  }
+
+  .cw-overlay {
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    background: #f9fafb;
+  }
+
+  .cw-box h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  .cw-box p {
+    margin: 0 0 0.5rem;
+    color: var(--color-muted);
+  }
+
+  .cw-box p:last-of-type {
+    margin-bottom: 1.25rem;
+  }
+
+  .cw-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .cw-continue {
+    font: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+  }
+
+  .cw-back {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+  }
+</style>
