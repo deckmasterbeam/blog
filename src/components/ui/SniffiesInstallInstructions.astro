@@ -1,5 +1,5 @@
 ---
-import InstallButton from './InstallButton.astro';
+import InstallButton from "./InstallButton.astro";
 
 interface Props {
   version: string;
@@ -11,27 +11,55 @@ const userscriptHref = `https://github.com/deckmasterbeam/SniffiesProjects/relea
 const chromeHref = `https://github.com/deckmasterbeam/SniffiesProjects/releases/download/chrome-${version}/sniffies-chrome.zip`;
 ---
 
-<p>There are two builds: a userscript for iOS and a Chrome extension for desktop.</p>
+<p>
+  There are two builds: a userscript for iOS and a Chrome extension for desktop.
+</p>
 
 <h3>iOS (Safari)</h3>
 
 <ol>
-  <li>Install the <a href="https://apps.apple.com/us/app/userscripts/id1463298887">Userscripts</a> app</li>
+  <li>
+    Install the <a href="https://apps.apple.com/us/app/userscripts/id1463298887"
+      >Userscripts</a
+    > app
+  </li>
   <li>Enable it in <strong>Settings → Safari → Extensions</strong></li>
-  <li>Click on the install button below to go to the userscript page. On that page, click on the button next to the URL (highlighted in red in the screenshot below), then click on the userscript extension. Userscript will recognize the file and prompt you to install it. Click <strong>Install</strong>.</li>
+  <li>
+    Click on the install button below to go to the userscript page. On that
+    page, click on the button next to the URL (highlighted in red in the
+    screenshot below), then click on the userscript extension. Userscript will
+    recognize the file and prompt you to install it. Click <strong
+      >Install</strong
+    >.
+  </li>
 </ol>
 
 <figure>
-  <img src="/images/sniffies-userscript-install-1.PNG" alt="The website settings button in Safari's address bar that opens the extensions menu" />
-  <figcaption>Tap this button in the address bar to access Manage Extensions. In that menu, click on the userscript extension.</figcaption>
+  <img
+    src="/images/sniffies-userscript-install-1.PNG"
+    alt="The website settings button in Safari's address bar that opens the extensions menu"
+  />
+  <figcaption>
+    Tap this button in the address bar to access Manage Extensions. In that
+    menu, click on the userscript extension.
+  </figcaption>
 </figure>
 
 <figure>
-  <img src="/images/sniffies-userscript-install-2.PNG" alt="Userscripts extension prompting the user that a userscript has been detected and offering to install it" />
-  <figcaption>Userscripts will detect the script and prompt you to install (or reinstall) it</figcaption>
+  <img
+    src="/images/sniffies-userscript-install-2.PNG"
+    alt="Userscripts extension prompting the user that a userscript has been detected and offering to install it"
+  />
+  <figcaption>
+    Userscripts will detect the script and prompt you to install (or reinstall)
+    it
+  </figcaption>
 </figure>
 
-<InstallButton href={userscriptHref} label={`Install iOS Userscript v${version}`} />
+<InstallButton
+  href={userscriptHref}
+  label={`Install iOS Userscript v${version}`}
+/>
 
 <h3>Chrome (Desktop)</h3>
 
@@ -39,8 +67,15 @@ const chromeHref = `https://github.com/deckmasterbeam/SniffiesProjects/releases/
 
 <ol>
   <li>Download the zip below and unzip it</li>
-  <li>Go to <code>chrome://extensions</code> and enable <strong>Developer mode</strong> (top right)</li>
+  <li>
+    Go to <code>chrome://extensions</code> and enable <strong
+      >Developer mode</strong
+    > (top right)
+  </li>
   <li>Click <strong>Load unpacked</strong> and select the unzipped folder</li>
 </ol>
 
-<InstallButton href={chromeHref} label={`Download Chrome Extension v${version}`} />
+<InstallButton
+  href={chromeHref}
+  label={`Download Chrome Extension v${version}`}
+/>

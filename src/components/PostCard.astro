@@ -1,16 +1,21 @@
 ---
-import type { Post } from '../types/post';
+import type { Post } from "../types/post";
 
-type Props = Post & { variant?: 'list' | 'card' | 'card-sm' };
+type Props = Post & { variant?: "list" | "card" | "card-sm" };
 
 const props = Astro.props;
-const { title, date, description, slug, variant = 'list' } = props;
-const formatted = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-const href = props.type === 'project'
-  ? `/projects/${slug}`
-  : props.type === 'release'
-  ? `/releases/${slug}`
-  : `/blog/${slug}`;
+const { title, date, description, slug, variant = "list" } = props;
+const formatted = date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+const href =
+  props.type === "project"
+    ? `/projects/${slug}`
+    : props.type === "release"
+      ? `/releases/${slug}`
+      : `/blog/${slug}`;
 ---
 
 <article class={variant}>
@@ -79,5 +84,4 @@ const href = props.type === 'project'
     color: var(--color-muted);
     font-size: 0.95rem;
   }
-
 </style>

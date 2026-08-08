@@ -1,11 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import { getCollection } from "astro:content";
+import BlogPost from "../../layouts/BlogPost.astro";
 
 export async function getStaticPaths() {
-  const releases = await getCollection('releases', ({ data }) => !data.draft);
-  return releases.map(post => ({
-    params: { slug: post.id.replace(/\.(md|mdx)$/, '') },
+  const releases = await getCollection("releases", ({ data }) => !data.draft);
+  return releases.map((post) => ({
+    params: { slug: post.id.replace(/\.(md|mdx)$/, "") },
     props: { post },
   }));
 }
@@ -19,6 +19,7 @@ const { Content } = await post.render();
   date={post.data.date}
   description={post.data.description}
   tags={[post.data.projectTag]}
+  contentWarning={post.data.contentWarning}
 >
   <Content />
 </BlogPost>

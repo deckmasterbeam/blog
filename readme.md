@@ -15,13 +15,13 @@ A personal site built with [Astro](https://astro.build) and deployed on [Vercel]
 
 ## Tech Stack
 
-| Layer | Choice |
-|---|---|
-| Framework | Astro |
+| Layer         | Choice                                |
+| ------------- | ------------------------------------- |
+| Framework     | Astro                                 |
 | Interactivity | React (islands, opt-in per component) |
-| Content | Markdown / MDX |
-| Deployment | Vercel |
-| Language | TypeScript |
+| Content       | Markdown / MDX                        |
+| Deployment    | Vercel                                |
+| Language      | TypeScript                            |
 
 **Note on React:** Astro pages and layouts are written in `.astro` files (JSX-like with frontmatter). React is used selectively for interactive components — demo widgets, toggles, etc. Most content pages won't need it.
 
@@ -84,17 +84,18 @@ All content lives in one collection as `.md` or `.mdx` files. The `tags` field d
 
 Tags drive routing and listing. Every post should have at least one of the following primary tags:
 
-| Tag | Where it appears | Route |
-|---|---|---|
-| `blog` | Blog listing | `/blog` |
-| `projectLanding` | Projects listing | `/projects` |
-| `release` | Releases listing + project landing page | `/releases` |
+| Tag              | Where it appears                        | Route       |
+| ---------------- | --------------------------------------- | ----------- |
+| `blog`           | Blog listing                            | `/blog`     |
+| `projectLanding` | Projects listing                        | `/projects` |
+| `release`        | Releases listing + project landing page | `/releases` |
 
 Each project also gets its own **project tag** (e.g. `linkedinExtension`, `sniffies`). Apply it to both the project's landing page and all its release posts — this is how the project page knows which releases to list.
 
 Example frontmatter for each type:
 
 **Blog post**
+
 ```md
 ---
 title: "Nine Months: A Job Search Retrospective"
@@ -106,6 +107,7 @@ draft: false
 ```
 
 **Project landing page**
+
 ```md
 ---
 title: "LinkedIn Extension"
@@ -117,6 +119,7 @@ draft: false
 ```
 
 **Release post**
+
 ```md
 ---
 title: "LinkedIn Extension v1"
@@ -144,7 +147,7 @@ Add React components only where interactivity is actually needed. Astro loads th
 
 ```astro
 ---
-import DemoWidget from '../components/ui/DemoWidget.tsx';
+import DemoWidget from "../components/ui/DemoWidget.tsx";
 ---
 
 <DemoWidget client:visible />

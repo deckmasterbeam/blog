@@ -11,6 +11,6 @@ I like some of the LinkedIn daily games, especially Zip. But some days, despite 
 
 To fix this problem, I've rebuild Zip: https://zip-clone.vercel.app/
 
-Lot of fun building this project largely using Claude. Its crazy how fluidly I can express an idea and get back some code that perfectly captures what I'm looking for. 
+Lot of fun building this project largely using Claude. Its crazy how fluidly I can express an idea and get back some code that perfectly captures what I'm looking for.
 
 If anyone is actually interested in this project, I plan to add leaderboards as a next step
