@@ -11,11 +11,16 @@ const userscriptHref = `https://raw.githubusercontent.com/deckmasterbeam/Sniffie
 const chromeHref = `https://github.com/deckmasterbeam/SniffiesProjects/releases/download/chrome-${version}/sniffies-chrome.zip`;
 ---
 
+<h2>Installation</h2>
+
+<p>There are two builds: a userscript and a Chrome extension.</p>
 <p>
-  There are two builds: a userscript for iOS and a Chrome extension for desktop.
+  There are three three ways to install these builds based on your use case:
 </p>
 
 <h3>iOS (Safari)</h3>
+
+<p>Install via the Userscripts app:</p>
 
 <ol>
   <li>
@@ -25,12 +30,12 @@ const chromeHref = `https://github.com/deckmasterbeam/SniffiesProjects/releases/
   </li>
   <li>Enable it in <strong>Settings → Safari → Extensions</strong></li>
   <li>
-    Click on the install button below to go to the userscript page. On that
-    page, click on the button next to the URL (highlighted in red in the
-    screenshot below), then click on the userscript extension. Userscript will
-    recognize the file and prompt you to install it. Click <strong
-      >Install</strong
-    >.
+    Tap the install button below to go to the userscript page. On that page, tap
+    the button next to the URL (highlighted in red in the screenshot below),
+    then tap the userscript extension. Userscripts will detect the script and
+    prompt you to install it. Tap <strong>Install</strong> (it'll say <strong
+      >Update</strong
+    > instead if you're reinstalling a newer version).
   </li>
 </ol>
 
@@ -41,7 +46,7 @@ const chromeHref = `https://github.com/deckmasterbeam/SniffiesProjects/releases/
   />
   <figcaption>
     Tap this button in the address bar to access Manage Extensions. In that
-    menu, click on the userscript extension.
+    menu, tap the userscript extension.
   </figcaption>
 </figure>
 
@@ -51,8 +56,7 @@ const chromeHref = `https://github.com/deckmasterbeam/SniffiesProjects/releases/
     alt="Userscripts extension prompting the user that a userscript has been detected and offering to install it"
   />
   <figcaption>
-    Userscripts will detect the script and prompt you to install (or reinstall)
-    it
+    Userscripts will detect the script and prompt you to install (or update) it
   </figcaption>
 </figure>
 
@@ -61,7 +65,13 @@ const chromeHref = `https://github.com/deckmasterbeam/SniffiesProjects/releases/
   label={`Install iOS Userscript v${version}`}
 />
 
-<h3>Chrome (Desktop)</h3>
+<p>
+  <strong>Updating:</strong> come back to this page and tap the install button again
+  whenever a new version is released — Userscripts will show
+  <strong>Update</strong> instead of <strong>Install</strong>.
+</p>
+
+<h3>Desktop (Chrome Extension)</h3>
 
 <p>The extension isn't on the Chrome Web Store, so installation is manual:</p>
 
@@ -79,3 +89,42 @@ const chromeHref = `https://github.com/deckmasterbeam/SniffiesProjects/releases/
   href={chromeHref}
   label={`Download Chrome Extension v${version}`}
 />
+
+<p>
+  <strong>Updating:</strong> download the new zip and unzip it over the same folder,
+  then go back to <code>chrome://extensions</code> and click the reload icon on the
+  Sniffies extension's card. If you unzipped to a new folder instead, remove the old
+  extension first and <strong>Load unpacked</strong> the new folder.
+</p>
+
+<h3>Desktop (Tampermonkey)</h3>
+
+<p>
+  If you'd rather run the userscript build on desktop instead of the Chrome
+  extension, install it via <a href="https://www.tampermonkey.net/"
+    >Tampermonkey</a
+  >:
+</p>
+
+<ol>
+  <li>
+    Install the <a href="https://www.tampermonkey.net/">Tampermonkey</a> extension
+    from the Chrome Web Store
+  </li>
+  <li>
+    Click the install button below. Tampermonkey will detect the script and
+    prompt you to install it. Click <strong>Install</strong> (it'll say
+    <strong>Update</strong> instead if you're reinstalling a newer version).
+  </li>
+</ol>
+
+<InstallButton
+  href={userscriptHref}
+  label={`Install Tampermonkey Userscript v${version}`}
+/>
+
+<p>
+  <strong>Updating:</strong> come back to this page and click the install button again
+  whenever a new version is released — Tampermonkey will show
+  <strong>Update</strong> instead of <strong>Install</strong>.
+</p>

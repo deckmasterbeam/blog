@@ -6,3 +6,13 @@ draft: true
 projectTag: SniffiesProject
 contentWarning: sniffies
 ---
+
+#TODO
+
+<hr />
+
+<SniffiesInstallInstructions version="1.0" />
+
+<hr />
+
+<SniffiesPrivacyPolicy />
