@@ -1,0 +1,203 @@
+---
+import { codeToHtml, type ShikiTransformer } from "shiki";
+
+interface Props {
+  /** GitHub file URL, e.g. https://github.com/owner/repo/blob/main/src/foo.ts#L10-L20 */
+  url: string;
+  /** Override which lines to show, e.g. "5,10-15,42". Overrides the url's #L fragment. */
+  lines?: string;
+  /** Override the displayed path label. */
+  title?: string;
+}
+
+const { url, lines, title } = Astro.props;
+
+function parseGithubUrl(rawUrl: string) {
+  const u = new URL(rawUrl);
+  const parts = u.pathname.split("/").filter(Boolean);
+  if (parts.length < 5 || parts[2] !== "blob") {
+    throw new Error(
+      `GithubSnippet: expected a GitHub file URL like https://github.com/owner/repo/blob/ref/path, got "${rawUrl}"`,
+    );
+  }
+  const [owner, repo, , ref, ...pathParts] = parts;
+  return {
+    owner,
+    repo,
+    ref,
+    path: pathParts.join("/"),
+    hash: u.hash.replace(/^#/, ""),
+  };
+}
+
+function parseLineSpec(spec: string): Array<[number, number]> {
+  return spec
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .map((part) => {
+      const match = part.match(/^L?(\d+)(?:-L?(\d+))?$/i);
+      if (!match) {
+        throw new Error(`GithubSnippet: invalid line spec "${part}"`);
+      }
+      const start = Number(match[1]);
+      const end = match[2] ? Number(match[2]) : start;
+      return [Math.min(start, end), Math.max(start, end)] as [number, number];
+    })
+    .sort((a, b) => a[0] - b[0]);
+}
+
+const rawFileCache = new Map<string, Promise<string>>();
+function fetchRawFile(owner: string, repo: string, ref: string, path: string) {
+  const key = `${owner}/${repo}/${ref}/${path}`;
+  let cached = rawFileCache.get(key);
+  if (!cached) {
+    const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path}`;
+    cached = fetch(rawUrl).then((res) => {
+      if (!res.ok) {
+        throw new Error(
+          `GithubSnippet: failed to fetch ${rawUrl} (${res.status})`,
+        );
+      }
+      return res.text();
+    });
+    rawFileCache.set(key, cached);
+  }
+  return cached;
+}
+
+const { owner, repo, ref, path, hash } = parseGithubUrl(url);
+
+const lineSpec = lines ?? hash;
+if (!lineSpec) {
+  throw new Error(
+    `GithubSnippet: no line(s) specified for ${url}. Add "#L10-L20" to the url or pass a "lines" prop.`,
+  );
+}
+const ranges = parseLineSpec(lineSpec);
+
+const raw = await fetchRawFile(owner, repo, ref, path);
+const allLines = raw.split(/\r\n|\n/);
+const lang = path.split(".").pop()?.toLowerCase() || "text";
+
+const blocks = await Promise.all(
+  ranges.map(async ([start, end]) => {
+    const codeText = allLines
+      .slice(start - 1, Math.min(end, allLines.length))
+      .join("\n");
+    const lineNumbers: ShikiTransformer = {
+      line(node, line) {
+        node.properties["data-line"] = String(start + line - 1);
+      },
+    };
+    try {
+      return await codeToHtml(codeText, {
+        lang,
+        theme: "github-light",
+        transformers: [lineNumbers],
+      });
+    } catch {
+      return await codeToHtml(codeText, {
+        lang: "text",
+        theme: "github-light",
+        transformers: [lineNumbers],
+      });
+    }
+  }),
+);
+
+const displayPath = title ?? `${owner}/${repo}/${path}`;
+const lineLabel = ranges
+  .map(([s, e]) => (s === e ? `L${s}` : `L${s}-L${e}`))
+  .join(", ");
+---
+
+<div class="gh-snippet">
+  <a
+    class="gh-snippet-header"
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <span class="gh-snippet-path">{displayPath}</span>
+    <span class="gh-snippet-lines">{lineLabel}</span>
+  </a>
+  {
+    blocks.map((html, i) => (
+      <>
+        {i > 0 && <div class="gh-snippet-gap">⋮</div>}
+        <Fragment set:html={html} />
+      </>
+    ))
+  }
+</div>
+
+<style is:global>
+  .gh-snippet {
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+
+  .gh-snippet-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    background: #f9fafb;
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+
+  .gh-snippet-header:hover {
+    opacity: 1;
+    color: var(--color-text);
+  }
+
+  .gh-snippet-path {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .gh-snippet-lines {
+    flex-shrink: 0;
+  }
+
+  .gh-snippet pre.shiki {
+    margin: 0;
+    padding: 0.75rem 0;
+    overflow-x: auto;
+    font-size: 0.875rem;
+  }
+
+  .gh-snippet .line {
+    display: inline-block;
+    width: 100%;
+    min-height: 1.5em;
+    line-height: 1.5;
+    padding: 0 1rem 0 3.5rem;
+    position: relative;
+  }
+
+  .gh-snippet .line[data-line]::before {
+    content: attr(data-line);
+    position: absolute;
+    left: 0;
+    width: 3rem;
+    text-align: right;
+    color: var(--color-muted);
+    user-select: none;
+  }
+
+  .gh-snippet-gap {
+    text-align: center;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    padding: 0.25rem 0;
+  }
+</style>
