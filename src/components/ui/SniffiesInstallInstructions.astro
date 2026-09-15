@@ -1,5 +1,5 @@
 ---
-import InstallButton from "./InstallButton.astro";
+import LinkButton from "./LinkButton.astro";
 
 interface Props {
   version: string;
@@ -60,7 +60,7 @@ const chromeHref = `https://github.com/deckmasterbeam/SniffiesProjects/releases/
   </figcaption>
 </figure>
 
-<InstallButton
+<LinkButton
   href={userscriptHref}
   label={`Install iOS Userscript v${version}`}
 />
@@ -85,10 +85,7 @@ const chromeHref = `https://github.com/deckmasterbeam/SniffiesProjects/releases/
   <li>Click <strong>Load unpacked</strong> and select the unzipped folder</li>
 </ol>
 
-<InstallButton
-  href={chromeHref}
-  label={`Download Chrome Extension v${version}`}
-/>
+<LinkButton href={chromeHref} label={`Download Chrome Extension v${version}`} />
 
 <p>
   <strong>Updating:</strong> download the new zip and unzip it over the same folder,
@@ -118,7 +115,7 @@ const chromeHref = `https://github.com/deckmasterbeam/SniffiesProjects/releases/
   </li>
 </ol>
 
-<InstallButton
+<LinkButton
   href={userscriptHref}
   label={`Install Tampermonkey Userscript v${version}`}
 />
@@ -128,3 +125,9 @@ const chromeHref = `https://github.com/deckmasterbeam/SniffiesProjects/releases/
   whenever a new version is released — Tampermonkey will show
   <strong>Update</strong> instead of <strong>Install</strong>.
 </p>
+
+<h3>Still having trouble?</h3>
+
+<p>If installation isn't working, let me know what happened.</p>
+
+<LinkButton href="/report/install-issue" label="Report an install issue" />

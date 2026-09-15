@@ -3,6 +3,7 @@ import {
   contentWarnings,
   type ContentWarningKey,
 } from "../content/contentWarnings";
+import ackCheckScript from "../scripts/content-warning-ack-check.js?raw";
 
 interface Props {
   warningKey?: ContentWarningKey;
@@ -14,17 +15,7 @@ const storageKey = warningKey ? `cw-ack:${warningKey}` : "";
 ---
 
 <div class="cw-gate" data-active={warning ? "true" : "false"}>
-  <script is:inline data-key={storageKey}>
-    (function () {
-      var gate = document.currentScript.parentElement;
-      if (gate.dataset.active !== "true") return;
-      try {
-        if (localStorage.getItem(document.currentScript.dataset.key) === "1") {
-          gate.classList.add("cw-ack");
-        }
-      } catch (e) {}
-    })();
-  </script>
+  <script is:inline data-key={storageKey} set:html={ackCheckScript} />
 
   {
     warning && (
@@ -93,7 +84,7 @@ const storageKey = warningKey ? `cw-ack:${warningKey}` : "";
     border: 1px solid var(--color-border);
     border-radius: 6px;
     padding: 1.5rem;
-    background: #f9fafb;
+    background: var(--color-surface);
   }
 
   .cw-box h2 {
@@ -122,7 +113,7 @@ const storageKey = warningKey ? `cw-ack:${warningKey}` : "";
     font-size: 0.9rem;
     cursor: pointer;
     background: var(--color-accent);
-    color: var(--color-bg);
+    color: var(--color-accent-text);
     border: none;
     border-radius: 4px;
     padding: 0.5rem 1rem;

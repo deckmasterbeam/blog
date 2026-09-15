@@ -2,15 +2,14 @@
 import { codeToHtml, type ShikiTransformer } from "shiki";
 
 interface Props {
-  /** GitHub file URL, e.g. https://github.com/owner/repo/blob/main/src/foo.ts#L10-L20 */
+  /** GitHub file URL, must have lines specified, e.g. https://github.com/owner/repo/blob/main/src/foo.ts#L10-L20 */
   url: string;
-  /** Override which lines to show, e.g. "5,10-15,42". Overrides the url's #L fragment. */
-  lines?: string;
   /** Override the displayed path label. */
   title?: string;
+  // TODO: add optional description
 }
 
-const { url, lines, title } = Astro.props;
+const { url, title } = Astro.props;
 
 function parseGithubUrl(rawUrl: string) {
   const u = new URL(rawUrl);
@@ -68,13 +67,12 @@ function fetchRawFile(owner: string, repo: string, ref: string, path: string) {
 
 const { owner, repo, ref, path, hash } = parseGithubUrl(url);
 
-const lineSpec = lines ?? hash;
-if (!lineSpec) {
+if (!hash) {
   throw new Error(
-    `GithubSnippet: no line(s) specified for ${url}. Add "#L10-L20" to the url or pass a "lines" prop.`,
+    `GithubSnippet: no line(s) specified for ${url}. Add "#L10-L20" to the url.`,
   );
 }
-const ranges = parseLineSpec(lineSpec);
+const ranges = parseLineSpec(hash);
 
 const raw = await fetchRawFile(owner, repo, ref, path);
 const allLines = raw.split(/\r\n|\n/);
@@ -145,7 +143,7 @@ const lineLabel = ranges
     justify-content: space-between;
     gap: 1rem;
     padding: 0.5rem 1rem;
-    background: #f9fafb;
+    background: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
     font-family: var(--font-mono);
     font-size: 0.8rem;
