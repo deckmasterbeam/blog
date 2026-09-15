@@ -1,0 +1,33 @@
+---
+import themeToggleScript from "../scripts/theme-toggle.js?raw";
+
+const themeOptions: Record<string, string> = {
+  system: "System",
+  light: "Light",
+  dark: "Dark",
+  "high-contrast-light": "High contrast light",
+  "high-contrast-dark": "High contrast dark",
+};
+---
+
+<select id="theme-toggle" aria-label="Theme">
+  {
+    Object.entries(themeOptions).map(([value, text]) => (
+      <option value={value}>{text}</option>
+    ))
+  }
+</select>
+
+<script is:inline set:html={themeToggleScript} />
+
+<style>
+  select {
+    font: inherit;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.3rem 0.5rem;
+  }
+</style>

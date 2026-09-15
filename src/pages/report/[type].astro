@@ -1,0 +1,16 @@
+---
+import Base from "../../layouts/Base.astro";
+import ReportForm from "../../components/ReportForm.astro";
+import { reportTypes, type ReportTypeKey } from "../../content/reportTypes";
+
+export function getStaticPaths() {
+  return Object.keys(reportTypes).map((type) => ({ params: { type } }));
+}
+
+const { type } = Astro.params as { type: ReportTypeKey };
+const config = reportTypes[type];
+---
+
+<Base title={config.title} description={config.title}>
+  <ReportForm type={type} />
+</Base>

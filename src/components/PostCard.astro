@@ -10,12 +10,17 @@ const formatted = date.toLocaleDateString("en-US", {
   month: "long",
   day: "numeric",
 });
-const href =
-  props.type === "project"
-    ? `/projects/${slug}`
-    : props.type === "release"
-      ? `/releases/${slug}`
-      : `/blog/${slug}`;
+let href;
+switch (props.type) {
+  case "project":
+    href = `/projects/${slug}`;
+    break;
+  case "release":
+    href = `/releases/${slug}`;
+    break;
+  default:
+    href = `/blog/${slug}`;
+}
 ---
 
 <article class={variant}>
