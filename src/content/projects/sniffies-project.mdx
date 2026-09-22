@@ -9,6 +9,7 @@ contentWarning: sniffies
 ---
 
 import { bookmarkletEnabled } from "../../lib/featureFlags";
+import LinkButton from "../../components/ui/LinkButton.astro";
 
 A set of tools that recreate and expand functionality for [sniffies.com](https://sniffies.com), shipped as a Chrome extension and an iOS/desktop/Android userscript{bookmarkletEnabled && ", plus a fallback bookmarklet"}.
 
@@ -41,6 +42,8 @@ Flag suspected bot accounts (malware-link spammers, fake "OnlyFans" profiles) fr
 ### Profile online notifications
 
 _In development — not yet available to install._ Favorite a profile and get a text message when they come online.
+
+<LinkButton href="/projects/sniffies-project/install/" label="Install Sniffies Tools" />
 
 ## Platform support at a glance
 
@@ -77,4 +80,6 @@ _In development — not yet available to install._ Favorite a profile and get a 
 
 "Userscript" covers three install paths that all run the same build: the Userscripts app on iOS Safari, and Tampermonkey on desktop or Android.
 
-Not sure which build you need? [Pick your platform →](/projects/sniffies-project/install/)
+Not sure which build you need? 
+
+<LinkButton href="/projects/sniffies-project/install/" label="Pick your platform →" />
