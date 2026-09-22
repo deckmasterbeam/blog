@@ -1,5 +1,9 @@
 import { defineCollection, z } from "astro:content";
-import { contentWarnings, type ContentWarningKey } from "./contentWarnings";
+import { glob } from "astro/loaders";
+import {
+  contentWarnings,
+  type ContentWarningKey,
+} from "./content/contentWarnings";
 
 const contentWarningKeys = Object.keys(contentWarnings) as [
   ContentWarningKey,
@@ -7,10 +11,10 @@ const contentWarningKeys = Object.keys(contentWarnings) as [
 ];
 
 const blog = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
-    date: z.date(),
+    date: z.coerce.date(),
     description: z.string(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
@@ -20,10 +24,10 @@ const blog = defineCollection({
 });
 
 const projects = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/projects" }),
   schema: z.object({
     title: z.string(),
-    date: z.date(),
+    date: z.coerce.date(),
     description: z.string(),
     draft: z.boolean().default(false),
     repo: z.string().url().optional(),
@@ -34,10 +38,10 @@ const projects = defineCollection({
 });
 
 const releases = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/releases" }),
   schema: z.object({
     title: z.string(),
-    date: z.date(),
+    date: z.coerce.date(),
     description: z.string(),
     draft: z.boolean().default(false),
     repo: z.string().url().optional(),

@@ -1,0 +1,59 @@
+---
+import InstallPage from "../../../../layouts/InstallPage.astro";
+import InstallTrouble from "../../../../components/ui/InstallTrouble.astro";
+import LinkButton from "../../../../components/ui/LinkButton.astro";
+import { getLatestSniffiesRelease } from "../../../../lib/sniffiesReleases";
+
+const { version, userscriptHref } = await getLatestSniffiesRelease();
+---
+
+<InstallPage
+  header="Userscript via Tampermonkey (Android)"
+  description="Install the Sniffies Tools userscript via Tampermonkey on Firefox for Android."
+>
+  <p>
+    For Firefox on Android. Chrome and most other Android browsers don't support
+    extensions at all, but Firefox for Android does, including Tampermonkey.
+  </p>
+
+  <p>
+    Not using Firefox? Use the <a
+      href="/projects/sniffies-project/install/bookmarklet-android/"
+      >bookmarklet install</a
+    > instead.
+  </p>
+
+  <h2>Step 1: Install Tampermonkey</h2>
+  <ol>
+    <li>
+      Install <a
+        href="https://addons.mozilla.org/en-US/android/addon/tampermonkey/"
+        >Tampermonkey</a
+      > from Firefox's add-on store
+    </li>
+  </ol>
+
+  <h2>Step 2: Install the Sniffies Project Userscript</h2>
+  <ol>
+    <li>Tap the install button below.</li>
+    <li>Tampermonkey will detect the script and prompt you to install it.</li>
+    <li>
+      Tap <strong>Install</strong> (it'll say <strong>Update</strong> instead if you're
+      reinstalling a newer version).
+    </li>
+  </ol>
+
+  <LinkButton
+    href={userscriptHref}
+    label={`Install Tampermonkey Userscript v${version}`}
+  />
+
+  <h2>Updating</h2>
+  <p>
+    Come back to this page and tap the install button again whenever a new
+    version is released — Tampermonkey will show
+    <strong>Update</strong> instead of <strong>Install</strong>.
+  </p>
+
+  <InstallTrouble />
+</InstallPage>

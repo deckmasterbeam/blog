@@ -10,7 +10,7 @@ export const reportTypes: Record<string, ReportType> = {
     dbType: "user submitted install issue",
     title: "Report an install issue",
     subtitle:
-      "Include your OS and browser, whether you're using the Chrome extension or the userscript, and what went wrong.",
+      "Include your OS and browser, whether you're using the Chrome extension, the userscript, or the bookmarklet, and what went wrong.",
     summaryLabel: "What happened?",
   },
 } as const;

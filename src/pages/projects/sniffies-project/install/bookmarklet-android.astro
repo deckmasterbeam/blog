@@ -1,0 +1,81 @@
+---
+import InstallPage from "../../../../layouts/InstallPage.astro";
+import InstallTrouble from "../../../../components/ui/InstallTrouble.astro";
+import InstallComingSoon from "../../../../components/ui/InstallComingSoon.astro";
+import { bookmarkletCode } from "../../../../lib/sniffiesBookmarklet";
+import { bookmarkletEnabled } from "../../../../lib/featureFlags";
+---
+
+<InstallPage
+  header="Bookmarklet (Android)"
+  description="Install the Sniffies Tools bookmarklet on Android browsers without extension support."
+>
+  {!bookmarkletEnabled && <InstallComingSoon />}
+
+  {
+    bookmarkletEnabled && (
+      <>
+        <p>
+          For Chrome, Samsung Internet, or most other Android browsers. Chrome
+          for Android has never supported extensions, so Tampermonkey isn't an
+          option here — only{" "}
+          <a href="https://addons.mozilla.org/en-US/android/addon/tampermonkey/">
+            Firefox for Android supports it
+          </a>
+          . A bookmarklet is the fallback everywhere else.
+        </p>
+
+        <p>
+          <strong>Heads up:</strong> the bookmarklet build only supports a
+          subset of features (currently just location spoofing, and it doesn't
+          work perfectly). If you're on Firefox, the
+          <a href="/projects/sniffies-project/install/tampermonkey-android/">
+            Tampermonkey install
+          </a>{" "}
+          gets you the full feature set.
+        </p>
+
+        <p>
+          Menu names vary a bit by browser — in Chrome, it's
+          <strong>⋮ → Bookmarks</strong>, then the <strong>⋮</strong> next to
+          the bookmark → <strong>Edit</strong>:
+        </p>
+
+        <h2>Step 1: Bookmark a Page</h2>
+        <ol>
+          <li>Bookmark any page in your browser</li>
+          <li>Open your bookmarks and find the one you just added</li>
+        </ol>
+
+        <h2>Step 2: Set the Bookmarklet Code</h2>
+        <ol>
+          <li>Edit it — rename it to something like "Sniffies Tools"</li>
+          <li>Replace its URL with the code below, then save</li>
+        </ol>
+
+        <pre>
+          <code>{bookmarkletCode}</code>
+        </pre>
+
+        <h2>Using It</h2>
+        <p>
+          Navigate to sniffies.com, open your bookmarks, and tap "Sniffies
+          Tools". A button will appear on the page.
+        </p>
+
+        <p>
+          If your browser doesn't let you edit a bookmark's URL, let me know
+          which one below and I'll add specific steps.
+        </p>
+        <InstallTrouble />
+      </>
+    )
+  }
+</InstallPage>
+
+<style>
+  pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+</style>
