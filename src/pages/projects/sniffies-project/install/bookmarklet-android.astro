@@ -7,11 +7,9 @@ import { bookmarkletEnabled } from "../../../../lib/featureFlags";
 ---
 
 <InstallPage
-  title="Install: Bookmarklet (Android)"
+  header="Bookmarklet (Android)"
   description="Install the Sniffies Tools bookmarklet on Android browsers without extension support."
 >
-  <h1>Bookmarklet (Android)</h1>
-
   {!bookmarkletEnabled && <InstallComingSoon />}
 
   {

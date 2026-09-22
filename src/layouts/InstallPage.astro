@@ -3,24 +3,25 @@ import Base from "./Base.astro";
 import ContentWarningGate from "../components/ContentWarningGate.astro";
 
 interface Props {
-  title: string;
+  header: string;
   description?: string;
   backHref?: string;
   backLabel?: string;
 }
 
 const {
-  title,
+  header,
   description,
   backHref = "/projects/sniffies-project/install/",
   backLabel = "← All install options",
 } = Astro.props;
 ---
 
-<Base title={title} description={description}>
+<Base title={`Install: ${header}`} description={description}>
   <a class="back" href={backHref}>{backLabel}</a>
 
   <ContentWarningGate warningKey="sniffies">
+    <h1>{header}</h1>
     <slot />
   </ContentWarningGate>
 </Base>

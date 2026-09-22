@@ -7,11 +7,9 @@ import { bookmarkletEnabled } from "../../../../lib/featureFlags";
 ---
 
 <InstallPage
-  title="Install: Bookmarklet (iOS)"
+  header="Bookmarklet (iOS)"
   description="Install the Sniffies Tools bookmarklet on non-Safari iOS browsers."
 >
-  <h1>Bookmarklet (iOS)</h1>
-
   {!bookmarkletEnabled && <InstallComingSoon />}
 
   {
