@@ -1,0 +1,69 @@
+---
+import ProjectPage from "../../../../layouts/ProjectPage.astro";
+import ContentWarningGate from "../../../../components/ContentWarningGate.astro";
+import BackToInstallOptions from "../../../../components/ui/BackToInstallOptions.astro";
+import InstallTrouble from "../../../../components/ui/InstallTrouble.astro";
+import LinkButton from "../../../../components/ui/LinkButton.astro";
+import { getLatestSniffiesRelease } from "../../../../lib/sniffiesReleases";
+
+const { version, chromeHref } = await getLatestSniffiesRelease();
+---
+
+<ProjectPage
+  title="Install: Chrome Extension (Desktop)"
+  description="Install the Sniffies Tools Chrome extension on desktop."
+>
+  <BackToInstallOptions />
+
+  <ContentWarningGate warningKey="sniffies">
+    <h1>Chrome Extension (Desktop)</h1>
+
+    <p>
+      For Chrome, or any Chromium-based desktop browser (Edge, Brave, Opera,
+      etc).
+    </p>
+
+    <p>
+      The extension isn't on the Chrome Web Store, so installation is manual:
+    </p>
+
+    <h2>Step 1: Download the Extension</h2>
+    <ol>
+      <li>Download the zip below and unzip it</li>
+    </ol>
+
+    <LinkButton
+      href={chromeHref}
+      label={`Download Chrome Extension v${version}`}
+    />
+
+    <h2>Step 2: Load It Into Chrome</h2>
+    <ol>
+      <li>
+        Go to <code>chrome://extensions</code>
+      </li>
+      <li>Enable <strong>Developer mode</strong> (top right)</li>
+      <li>
+        Click <strong>Load unpacked</strong> and select the unzipped folder
+      </li>
+    </ol>
+
+    <h2>Updating</h2>
+    <ol>
+      <li>Download the new zip and unzip it over the same folder</li>
+      <li>
+        Go to <code>chrome://extensions</code> and click the reload icon on the Sniffies
+        extension's card
+        <ul>
+          <li>
+            <strong>Note:</strong> If you unzipped to a new folder instead, remove
+            the old extension first and <strong>Load unpacked</strong>
+            the new folder.
+          </li>
+        </ul>
+      </li>
+    </ol>
+
+    <InstallTrouble />
+  </ContentWarningGate>
+</ProjectPage>

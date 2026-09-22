@@ -1,0 +1,88 @@
+---
+import ProjectPage from "../../../../layouts/ProjectPage.astro";
+import ContentWarningGate from "../../../../components/ContentWarningGate.astro";
+import BackToInstallOptions from "../../../../components/ui/BackToInstallOptions.astro";
+import InstallTrouble from "../../../../components/ui/InstallTrouble.astro";
+import InstallComingSoon from "../../../../components/ui/InstallComingSoon.astro";
+import { bookmarkletCode } from "../../../../lib/sniffiesBookmarklet";
+import { bookmarkletEnabled } from "../../../../lib/featureFlags";
+---
+
+<ProjectPage
+  title="Install: Bookmarklet (iOS)"
+  description="Install the Sniffies Tools bookmarklet on non-Safari iOS browsers."
+>
+  <BackToInstallOptions />
+
+  <ContentWarningGate warningKey="sniffies">
+    <h1>Bookmarklet (iOS)</h1>
+
+    {!bookmarkletEnabled && <InstallComingSoon />}
+
+    {
+      bookmarkletEnabled && (
+        <>
+          <p>
+            For Chrome, Firefox, Edge, or any other non-Safari browser on
+            iPhone. Every iOS browser is required to use Safari's engine under
+            the hood, so Safari's <strong>Userscripts</strong> app and
+            extensions like Tampermonkey aren't available outside Safari itself.
+            A bookmarklet is the fallback.
+          </p>
+
+          <p>
+            <strong>Heads up:</strong> the bookmarklet build only supports a
+            subset of features (currently just location spoofing, and it doesn't
+            work perfectly). If you can switch to Safari, the
+            <a href="/projects/sniffies-project/install/userscript-ios/">
+              Userscripts app install
+            </a>{" "}
+            gets you the full feature set.
+          </p>
+
+          <p>
+            iOS browsers won't let you tap a link to install a bookmarklet, so
+            you'll create a normal bookmark first, then replace its URL with the
+            code below. The exact menu names vary a bit by browser, but the
+            shape is the same everywhere:
+          </p>
+
+          <h2>Step 1: Bookmark a Page</h2>
+          <ol>
+            <li>Bookmark any page in your browser</li>
+            <li>Open your bookmarks and find the one you just added</li>
+          </ol>
+
+          <h2>Step 2: Set the Bookmarklet Code</h2>
+          <ol>
+            <li>Edit it — rename it to something like "Sniffies Tools"</li>
+            <li>Replace its URL with the code below, then save</li>
+          </ol>
+
+          <pre>
+            <code>{bookmarkletCode}</code>
+          </pre>
+
+          <h2>Using It</h2>
+          <p>
+            Navigate to sniffies.com, open your bookmarks, and tap "Sniffies
+            Tools". A button will appear on the page.
+          </p>
+
+          <p>
+            If your browser doesn't let you edit a bookmark's URL, let me know
+            which one below and I'll add specific steps.
+          </p>
+          <InstallTrouble />
+        </>
+      )
+    }
+  </ContentWarningGate>
+</ProjectPage>
+
+<style>
+  pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+</style>

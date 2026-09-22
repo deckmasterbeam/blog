@@ -1,0 +1,24 @@
+---
+import ProjectPage from "../../../../layouts/ProjectPage.astro";
+import ContentWarningGate from "../../../../components/ContentWarningGate.astro";
+import SniffiesInstallPicker from "../../../../components/ui/SniffiesInstallPicker.astro";
+---
+
+<ProjectPage
+  title="Install Sniffies Tools"
+  description="Pick how you access sniffies.com to get install instructions for your platform."
+>
+  <a class="back" href="/projects/sniffies-project">← Sniffies Project</a>
+  <ContentWarningGate warningKey="sniffies">
+    <SniffiesInstallPicker />
+  </ContentWarningGate>
+</ProjectPage>
+
+<style>
+  .back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+</style>

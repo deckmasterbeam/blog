@@ -9,12 +9,12 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.9",
-    "@astrojs/mdx": "^4.3.14",
-    "@astrojs/react": "^4.0.0",
-    "@astrojs/vercel": "^9.0.5",
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/mdx": "^8.0.1",
+    "@astrojs/react": "^6.0.6",
+    "@astrojs/vercel": "^11.0.10",
     "@neondatabase/serverless": "^1.1.0",
-    "astro": "^5.0.0",
+    "astro": "^7.3.3",
     "marked": "^18.0.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -1,0 +1,13 @@
+---
+interface Props {
+  label?: string;
+}
+
+const { label = "☕ Buy me a coffee" } = Astro.props;
+---
+
+<a
+  href="https://buymeacoffee.com/deckmasterbeam"
+  target="_blank"
+  rel="noopener noreferrer">{label}</a
+>

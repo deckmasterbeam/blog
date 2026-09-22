@@ -11,8 +11,4 @@ contentWarning: sniffies
 
 <hr />
 
-<SniffiesInstallInstructions version="1.0" />
-
-<hr />
-
 <SniffiesPrivacyPolicy />

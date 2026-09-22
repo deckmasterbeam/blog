@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import { marked } from "marked";
 import ProjectPage from "../../layouts/ProjectPage.astro";
 import PostCard from "../../components/PostCard.astro";
@@ -29,8 +29,13 @@ export async function getStaticPaths() {
 
 const { post, releases } = Astro.props;
 
+const hasLocalContent = Boolean(post.body?.trim().length);
+
+let Content: any;
 let readmeHtml = "";
-if (post.data.repo) {
+if (hasLocalContent) {
+  ({ Content } = await render(post));
+} else if (post.data.repo) {
   const rawUrl =
     post.data.repo
       .replace("https://github.com", "https://raw.githubusercontent.com")
@@ -59,8 +64,21 @@ if (post.data.repo) {
         </a>
       )
     }
+    {
+      post.id.replace(/\.(md|mdx)$/, "") === "sniffies-project" && (
+        <a href="/projects/sniffies-project/install/">Install</a>
+      )
+    }
   </header>
   <ContentWarningGate warningKey={post.data.contentWarning}>
+    {
+      hasLocalContent && (
+        <div class="project-content">
+          <Content />
+        </div>
+      )
+    }
+    {readmeHtml && <div class="project-content" set:html={readmeHtml} />}
     {
       releases.length > 0 && (
         <section class="releases">
@@ -81,7 +99,6 @@ if (post.data.repo) {
         </section>
       )
     }
-    {readmeHtml && <div class="readme" set:html={readmeHtml} />}
   </ContentWarningGate>
 </ProjectPage>
 
@@ -104,9 +121,9 @@ if (post.data.repo) {
   }
 
   .releases {
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--color-border);
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
   }
 
   .releases h2 {
@@ -120,36 +137,51 @@ if (post.data.repo) {
     gap: 0.75rem;
   }
 
-  .readme :global(h1) {
+  .project-content :global(h1) {
     font-size: 1.5rem;
     margin-top: 2rem;
   }
-  .readme :global(h2) {
+  .project-content :global(h2) {
     font-size: 1.25rem;
     margin-top: 1.75rem;
   }
-  .readme :global(h3) {
+  .project-content :global(h3) {
     font-size: 1.05rem;
     margin-top: 1.5rem;
   }
-  .readme :global(p) {
+  .project-content :global(p) {
     margin: 1rem 0;
   }
-  .readme :global(ul),
-  .readme :global(ol) {
+  .project-content :global(ul),
+  .project-content :global(ol) {
     padding-left: 1.5rem;
   }
-  .readme :global(img) {
+  .project-content :global(img) {
     max-width: 100%;
   }
-  .readme :global(pre) {
+  .project-content :global(pre) {
     background: var(--color-surface);
     padding: 1rem;
     border-radius: 4px;
     overflow-x: auto;
   }
-  .readme :global(code) {
+  .project-content :global(code) {
     font-family: var(--font-mono);
     font-size: 0.875em;
+  }
+  .project-content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+  .project-content :global(th),
+  .project-content :global(td) {
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+  }
+  .project-content :global(th) {
+    background: var(--color-surface);
   }
 </style>

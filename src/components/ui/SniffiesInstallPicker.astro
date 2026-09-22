@@ -1,0 +1,82 @@
+---
+const options: { platform: string; href: string }[] = [
+  {
+    platform: "Chrome (or any Chromium browser) on Desktop",
+    href: "/projects/sniffies-project/install/chrome-desktop/",
+  },
+  {
+    platform: "Safari (or any other non-Chromium browser) on Desktop",
+    href: "/projects/sniffies-project/install/tampermonkey-desktop/",
+  },
+  {
+    platform: "Safari on iPhone",
+    href: "/projects/sniffies-project/install/userscript-ios/",
+  },
+  {
+    platform: "Any other browser on iPhone",
+    href: "/projects/sniffies-project/install/bookmarklet-ios/",
+  },
+  {
+    platform: "Firefox on Android",
+    href: "/projects/sniffies-project/install/tampermonkey-android/",
+  },
+  {
+    platform: "Any other browser on Android",
+    href: "/projects/sniffies-project/install/bookmarklet-android/",
+  },
+];
+---
+
+<h2>Installation</h2>
+
+<p>I access sniffies.com through:</p>
+
+<ul class="picker-list">
+  {
+    options.map((option) => (
+      <li>
+        <a href={option.href}>{option.platform}</a>
+      </li>
+    ))
+  }
+</ul>
+
+<p class="not-listed">
+  <a href="/report/install-issue">My platform of choice isn't here</a>
+</p>
+
+<style>
+  .picker-list {
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .picker-list li {
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+  }
+
+  .picker-list a {
+    display: block;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .picker-list a:hover {
+    opacity: 1;
+    background: var(--color-surface);
+  }
+
+  .not-listed {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .not-listed a {
+    color: var(--color-muted);
+  }
+</style>
