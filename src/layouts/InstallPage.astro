@@ -1,0 +1,35 @@
+---
+import Base from "./Base.astro";
+import ContentWarningGate from "../components/ContentWarningGate.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  backHref?: string;
+  backLabel?: string;
+}
+
+const {
+  title,
+  description,
+  backHref = "/projects/sniffies-project/install/",
+  backLabel = "← All install options",
+} = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <a class="back" href={backHref}>{backLabel}</a>
+
+  <ContentWarningGate warningKey="sniffies">
+    <slot />
+  </ContentWarningGate>
+</Base>
+
+<style>
+  .back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+</style>
