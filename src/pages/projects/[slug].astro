@@ -12,7 +12,7 @@ export async function getStaticPaths() {
   );
   const allReleases = await getCollection(
     "releases",
-    ({ data }) => !data.draft,
+    ({ data }) => !data.draft && !data.private,
   );
 
   return projectPosts.map((post) => {

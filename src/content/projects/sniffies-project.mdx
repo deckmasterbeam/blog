@@ -8,10 +8,9 @@ projectTag: SniffiesProject
 contentWarning: sniffies
 ---
 
-import { bookmarkletEnabled } from "../../lib/featureFlags";
 import LinkButton from "../../components/ui/LinkButton.astro";
 
-A set of tools that recreate and expand functionality for [sniffies.com](https://sniffies.com), shipped as a Chrome extension and an iOS/desktop/Android userscript{bookmarkletEnabled && ", plus a fallback bookmarklet"}.
+A set of tools that recreate and expand functionality for [sniffies.com](https://sniffies.com), shipped as a Chrome extension and an iOS/desktop/Android userscript, plus a fallback bookmarklet.
 
 ## Features
 
@@ -19,7 +18,7 @@ A set of tools that recreate and expand functionality for [sniffies.com](https:/
 
 Override the GPS coordinates Sniffies sees, so you can browse the map from anywhere.
 
-**Supported on:** Chrome Extension, Userscript (iOS Safari, Tampermonkey on desktop or Android).{bookmarkletEnabled && " Also possible via the Bookmarklet, though that build is unreliable."}
+**Supported on:** Chrome Extension, Userscript (iOS Safari, Tampermonkey on desktop or Android).
 
 **How to use it:** open the extension/userscript panel, enable location spoofing, enter coordinates, and save. It can take a moment for Sniffies to pick up the change — reload the page if it doesn't update right away.
 
@@ -27,7 +26,7 @@ Override the GPS coordinates Sniffies sees, so you can browse the map from anywh
 
 Click on profiles outside the free geofence to view them without hitting Sniffies' paywall.
 
-**Supported on:** Chrome Extension only.
+**Supported on:** Chrome Extension, Bookmarklet.
 
 **How to use it:** nothing to turn on — just click any profile on the map and the extension handles the rest.
 
@@ -56,7 +55,7 @@ _In development — not yet available to install._ Favorite a profile and get a 
       <th></th>
       <th>Chrome Extension</th>
       <th>Userscript</th>
-      {bookmarkletEnabled && <th>Bookmarklet</th>}
+      <th>Bookmarklet</th>
     </tr>
   </thead>
   <tbody>
@@ -64,19 +63,19 @@ _In development — not yet available to install._ Favorite a profile and get a 
       <td>Location spoofing</td>
       <td>✅</td>
       <td>✅</td>
-      {bookmarkletEnabled && <td>⚠️ unreliable</td>}
+      <td>—</td>
     </tr>
     <tr>
       <td>Profiles outside free radius</td>
       <td>✅</td>
-      <td>—</td>
-      {bookmarkletEnabled && <td>—</td>}
+      <td>✅</td>
+      <td>✅</td>
     </tr>
     <tr>
       <td>Bot reporting & blocking</td>
       <td>✅</td>
       <td>✅</td>
-      {bookmarkletEnabled && <td>—</td>}
+      <td>—</td>
     </tr>
   </tbody>
 </table>
