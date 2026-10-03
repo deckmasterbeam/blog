@@ -1,80 +1,107 @@
 ---
 import InstallPage from "../../../../layouts/InstallPage.astro";
 import InstallTrouble from "../../../../components/ui/InstallTrouble.astro";
-import InstallComingSoon from "../../../../components/ui/InstallComingSoon.astro";
-import { bookmarkletCode } from "../../../../lib/sniffiesBookmarklet";
-import { bookmarkletEnabled } from "../../../../lib/featureFlags";
+import SniffiesBookmarkletCode from "../../../../components/ui/SniffiesBookmarkletCode.astro";
 ---
 
 <InstallPage
   header="Bookmarklet (iOS)"
-  description="Install the Sniffies Tools bookmarklet on non-Safari iOS browsers."
+  description="Install the Sniffies Tools bookmarklet on iPhone browsers."
 >
-  {!bookmarkletEnabled && <InstallComingSoon />}
+  <p>
+    For Chrome, Firefox, Edge, or any other non-Safari browser on iPhone. Every
+    iOS browser is required to use Safari's engine under the hood, so Safari's <strong
+      >Userscripts</strong
+    > app and extensions like Tampermonkey aren't available outside Safari itself.
+    A bookmarklet is the fallback: a bookmark that runs a bit of code on the page
+    you're on instead of opening a link. It works in Safari too, with no app to install.
+  </p>
 
-  {
-    bookmarkletEnabled && (
-      <>
-        <p>
-          For Chrome, Firefox, Edge, or any other non-Safari browser on iPhone.
-          Every iOS browser is required to use Safari's engine under the hood,
-          so Safari's <strong>Userscripts</strong> app and extensions like
-          Tampermonkey aren't available outside Safari itself. A bookmarklet is
-          the fallback.
-        </p>
+  <p>
+    <strong>Heads up:</strong> the bookmarklet only supports opening profiles outside
+    your free radius. It can't spoof your location or block bots, because a bookmarklet
+    only runs after the page has already loaded. For those, switch to Safari and use
+    the{" "}
+    <a href="/projects/sniffies-project/install/userscript-ios/">
+      Userscripts app install
+    </a>
+    .
+  </p>
 
-        <p>
-          <strong>Heads up:</strong> the bookmarklet build only supports a
-          subset of features (currently just location spoofing, and it doesn't
-          work perfectly). If you can switch to Safari, the
-          <a href="/projects/sniffies-project/install/userscript-ios/">
-            Userscripts app install
-          </a>{" "}
-          gets you the full feature set.
-        </p>
+  <h2>Step 1: Copy the Bookmarklet Code</h2>
+  <SniffiesBookmarkletCode />
 
-        <p>
-          iOS browsers won't let you tap a link to install a bookmarklet, so
-          you'll create a normal bookmark first, then replace its URL with the
-          code below. The exact menu names vary a bit by browser, but the shape
-          is the same everywhere:
-        </p>
+  <h2>Step 2: Bookmark a Page</h2>
+  <p>
+    iOS browsers won't let you save the code as a bookmark directly, so bookmark
+    any page first (this one works):
+  </p>
+  <ul>
+    <li>
+      <strong>Safari:</strong> tap the Share button, then{" "}
+      <strong>Add Bookmark</strong>
+    </li>
+    <li>
+      <strong>Chrome:</strong> tap <strong>⋯</strong>, then{" "}
+      <strong>Add to Bookmarks</strong>
+    </li>
+  </ul>
 
-        <h2>Step 1: Bookmark a Page</h2>
-        <ol>
-          <li>Bookmark any page in your browser</li>
-          <li>Open your bookmarks and find the one you just added</li>
-        </ol>
+  <h2>Step 3: Turn the Bookmark into the Bookmarklet</h2>
+  <ol>
+    <li>
+      Open your bookmarks and tap <strong>Edit</strong>, then tap the bookmark
+      you just added
+    </li>
+    <li>Rename it to "Sniffies Tools"</li>
+    <li>
+      Delete everything in its address/URL field and paste the code from Step 1
+    </li>
+    <li>Save</li>
+  </ol>
 
-        <h2>Step 2: Set the Bookmarklet Code</h2>
-        <ol>
-          <li>Edit it — rename it to something like "Sniffies Tools"</li>
-          <li>Replace its URL with the code below, then save</li>
-        </ol>
+  <h2>Using It</h2>
+  <ol>
+    <li>Open sniffies.com and wait for the map to load</li>
+    <li>
+      Run the bookmarklet:
+      <ul>
+        <li>
+          <strong>Safari:</strong> open your bookmarks and tap "Sniffies Tools"
+        </li>
+        <li>
+          <strong>Chrome and others:</strong> tap the address bar, type "Sniffies
+          Tools", and tap the bookmark in the suggestions. Opening it from the bookmarks
+          list may not run it on the current page.
+        </li>
+      </ul>
+    </li>
+    <li>
+      You'll see a "Sniffies Tools loaded!" message, and a Sniffies Tools button
+      will appear in the map's row of icons
+    </li>
+    <li>
+      Tap that button, open{" "}
+      <strong>Open Profiles Outside Boundary</strong>, and tap{" "}
+      <strong>Enable</strong>. Set <strong>Open in</strong> to{" "}
+      <strong>New tab</strong> — opening in the current tab reloads the page, which
+      unloads the bookmarklet.
+    </li>
+  </ol>
 
-        <pre>
-          <code>{bookmarkletCode}</code>
-        </pre>
+  <p>
+    The bookmarklet only lasts until the page reloads, so run it again each time
+    you open or refresh sniffies.com.
+  </p>
 
-        <h2>Using It</h2>
-        <p>
-          Navigate to sniffies.com, open your bookmarks, and tap "Sniffies
-          Tools". A button will appear on the page.
-        </p>
+  <h2>Updating</h2>
+  <p>
+    Nothing to do. The bookmark loads the latest version every time you run it.
+  </p>
 
-        <p>
-          If your browser doesn't let you edit a bookmark's URL, let me know
-          which one below and I'll add specific steps.
-        </p>
-        <InstallTrouble />
-      </>
-    )
-  }
+  <p>
+    If your browser doesn't let you edit a bookmark's URL, or the bookmarklet
+    doesn't run, let me know which browser below and I'll add specific steps.
+  </p>
+  <InstallTrouble />
 </InstallPage>
-
-<style>
-  pre {
-    white-space: pre-wrap;
-    word-break: break-all;
-  }
-</style>
