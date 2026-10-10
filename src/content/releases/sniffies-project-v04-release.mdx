@@ -1,0 +1,49 @@
+---
+title: "Sniffies Project v0.4: Profile Filters"
+date: 2026-10-10
+description: "New Gender, Height, Weight and Last Online filters in Sniffies' own filter menu, plus no cap on how many Sexuality, Body Type and Position options you can pick."
+draft: false
+projectTag: SniffiesProject
+contentWarning: sniffies
+---
+
+import SniffiesInstallPicker from "../../components/ui/SniffiesInstallPicker.astro";
+import SniffiesPrivacyPolicy from "../../components/ui/SniffiesPrivacyPolicy.astro";
+
+## What's new?
+
+Sniffies' filter menu only goes so far. This release adds more filters to the Cruisers section of the Map Layers menu, built to look and feel like the ones Sniffies already has.
+
+- **Gender:** an on/off switch with Male, Female, Nonbinary and Not specified buttons. Pick as many as you like; at least one always stays selected.
+- **Height and Weight:** new lines under Cruiser Stats that open a min/max range sheet. You can set only a minimum, only a maximum, or both. Units follow your locale (ft/lb or cm/kg), and you can choose whether to also show profiles that don't list the value at all.
+- **Last Online:** a row under Cruising Now with Now, 30 min and 1 hr options. Once picked, the row shows the cutoff time, and the clock icon clears it. People stay on the map after they go offline, until you reload.
+- **No cap on Sexuality, Body Type and Position:** Sniffies limits these to "Choose up to 3" (4 for Position). With Profile Filters on, the limit is raised to 99.
+
+Filters apply to the map only. Your chats are never hidden by Gender, Height, Weight or Last Online.
+
+## How do I use this feature?
+
+Open the "Profile Filters" section of the popup (Chrome extension) or panel (userscript, bookmarklet) and click "Enable". It is off by default. Then open the Cruisers section of Sniffies' Map Layers menu to find the new rows.
+
+Gender, Height, Weight and Last Online work by filtering Sniffies' network responses as the page loads, so changes need a page reload to take effect. When you change one, a "Reload to apply" button appears right on that row.
+
+| Filter                                      | Chrome extension | Userscript | Bookmarklet |
+| ------------------------------------------- | ---------------- | ---------- | ----------- |
+| Gender, Height, Weight, Last Online         | Yes              | Yes        | No          |
+| Raised Sexuality / Body Type / Position cap | Yes              | Yes        | Yes         |
+
+A bookmarklet only runs after the page has loaded, so it is too late to filter the initial map data. It gets the raised selection caps, and the userscript is the way to get the rest on iOS.
+
+## Other changes
+
+- Versions of the Chrome extension, userscript, bookmarklet and server are now all 0.4
+- Added a `yarn format` command in the repo that runs Prettier in every package
+- The network filtering code is now one shared layer that the bot blocking and the new filters both use, and Sniffies' API paths and payload shapes are defined in one place. If Sniffies changes its data format, the console now warns about which expected field is missing.
+
+<hr />
+
+<SniffiesInstallPicker />
+
+<hr />
+
+<SniffiesPrivacyPolicy />
