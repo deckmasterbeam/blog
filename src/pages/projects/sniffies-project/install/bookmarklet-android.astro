@@ -8,6 +8,16 @@ import SniffiesBookmarkletCode from "../../../../components/ui/SniffiesBookmarkl
   header="Bookmarklet (Android)"
   description="Install the Sniffies Tools bookmarklet on Android browsers without extension support."
 >
+  <blockquote>
+    <p>
+      <strong>⚠️ Warning: this is the worst experience of the three installs.</strong>
+      A bookmarklet can't install itself like an extension or userscript can. You
+      have to set it up by hand, and then run it manually every time you open or
+      refresh sniffies.com. It also has the fewest features. If you can use the
+      Chrome extension or a userscript instead, do that.
+    </p>
+  </blockquote>
+
   <p>
     For Chrome, Samsung Internet, or most other Android browsers. Chrome for
     Android has never supported extensions, so Tampermonkey isn't an option here
@@ -20,9 +30,11 @@ import SniffiesBookmarkletCode from "../../../../components/ui/SniffiesBookmarkl
   </p>
 
   <p>
-    <strong>Heads up:</strong> the bookmarklet only supports opening profiles outside
-    your free radius. It can't spoof your location or block bots, because a bookmarklet
-    only runs after the page has already loaded. For those, use Firefox and the{
+    <strong>Heads up:</strong> the bookmarklet supports opening profiles outside
+    your free radius and raising the selection caps on Sniffies' Sexuality, Body Type
+    and Position filters. It can't spoof your location, block bots, or add the Gender,
+    Height, Weight and Last Online filters, because a bookmarklet only runs after
+    the page has already loaded. For those, use Firefox and the{
       " "
     }
     <a href="/projects/sniffies-project/install/tampermonkey-android/">
@@ -73,6 +85,11 @@ import SniffiesBookmarkletCode from "../../../../components/ui/SniffiesBookmarkl
       <strong>Enable</strong>. Set <strong>Open in</strong> to{" "}
       <strong>New tab</strong> — opening in the current tab reloads the page, which
       unloads the bookmarklet.
+    </li>
+    <li>
+      To raise the selection caps, open <strong>Profile Filters</strong>, tap{" "}
+      <strong>Enable</strong>, then open the Cruisers section of Sniffies' Map
+      Layers menu.
     </li>
   </ol>
 
