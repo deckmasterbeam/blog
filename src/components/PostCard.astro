@@ -15,7 +15,9 @@ const href =
     ? `/projects/${slug}`
     : props.type === "release"
       ? `/releases/${slug}`
-      : `/blog/${slug}`;
+      : props.type === "career"
+        ? `/career/${slug}`
+        : `/blog/${slug}`;
 ---
 
 <article class={variant}>

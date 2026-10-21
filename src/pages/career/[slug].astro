@@ -1,0 +1,26 @@
+---
+import { getCollection } from "astro:content";
+import CareerPage from "../../layouts/CareerPage.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("career", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.(md|mdx)$/, "") },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<CareerPage
+  title={post.data.title}
+  date={post.data.date}
+  description={post.data.description}
+  company={post.data.company}
+  embedUrl={post.data.embedUrl}
+  contentWarning={post.data.contentWarning}
+>
+  <Content />
+</CareerPage>
