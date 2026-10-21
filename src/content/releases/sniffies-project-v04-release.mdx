@@ -1,7 +1,7 @@
 ---
 title: "Sniffies Project v0.4: Profile Filters"
 date: 2026-10-10
-description: "New Gender, Height, Weight and Last Online filters in Sniffies' own filter menu, plus no cap on how many Sexuality, Body Type and Position options you can pick."
+description: "New filters in Sniffies' filter menu and changes to existing Sniffies filters. UX improvement on evading the free radius"
 draft: false
 projectTag: SniffiesProject
 contentWarning: sniffies
@@ -12,37 +12,65 @@ import SniffiesPrivacyPolicy from "../../components/ui/SniffiesPrivacyPolicy.ast
 
 ## What's new?
 
-Sniffies' filter menu only goes so far. This release adds more filters to the Cruisers section of the Map Layers menu, built to look and feel like the ones Sniffies already has.
+This release adds more filters to the Sniffies filter menu. Someone on the sniffies subreddit also posted about how they felt like being able to hide sent pictures should be a free feature. After my experience building around the free user radius, I felt like this would be another premium feature I could tackle. Now with 3 premium features added, I felt like reoragnizing this set of features under a single "premium features" section. I have more ideas for working within this space, but thats for 0.5, or the 1.0 release post, whichever comes first.
 
-- **Gender:** an on/off switch with Male, Female, Nonbinary and Not specified buttons. Pick as many as you like; at least one always stays selected.
-- **Height and Weight:** new lines under Cruiser Stats that open a min/max range sheet. You can set only a minimum, only a maximum, or both. Units follow your locale (ft/lb or cm/kg), and you can choose whether to also show profiles that don't list the value at all.
-- **Last Online:** a row under Cruising Now with Now, 30 min and 1 hr options. Once picked, the row shows the cutoff time, and the clock icon clears it. People stay on the map after they go offline, until you reload.
-- **No cap on Sexuality, Body Type and Position:** Sniffies limits these to "Choose up to 3" (4 for Position). With Profile Filters on, the limit is raised to 99.
+### Profile Filters
+
+The Sniffies filter menu only goes so far. My Profile Filters add more filters to the Sniffies filter menu, built to look and feel like the ones Sniffies already has.
+
+- **Gender:** an on/off switch to show Male, Female, Nonbinary, or gender Not specified. Pick as many as you like; at least one must be selected.
+- **Height and Weight:** new filters under "Cruiser Stats". You can set only a minimum, only a maximum, or both. Units follow your locale (ft/lb or cm/kg), and you can choose whether to show profiles that don't list a value at all.
+  {/* TODO GIF 1: Height/Weight sheet. Record: open Map Layers > Cruisers, tap Height, set a min and max, toggle "show profiles that don't list it", close the sheet, tap "Reload to apply", and show the map thin out. ~15s. */}
+- **Online After:** a filter similar to "Cruising Now". I don't like how the "Crusing Now" setting is so jittery, profiles show up and disappear as guys log on and off. Users can choose a lookback period of time between 15 minutes ago to 48 hours ago. When a lookback is choosen and the page is reloaded, only profiles online more recently than the selected point in time will be shown. The selected time does not roll forward (Choosing 15 min ago at 8:00PM will filter for profiles online after 7:45PM. At 8:30PM, the project will still be filtering for profiles online after 7:45PM).
+  {/* TODO GIF 2: Online After. Record: tap Select, scroll the sheet, pick a window, toggle it on, tap "Reload to apply", and show offline people disappearing. Could be combined with GIF 1 as one "new filters" GIF. */}
+- **No cap on Sexuality, Body Type and Position:** Sniffies limits these to "Choose up to 3" (4 for Position). But, the number of selected values is ultimately arbitrary. With Profile Filters on, the limit is raised to 99 (arbitrarily high value).
+  {/* TODO GIF 3 (~8s): Raised caps. Record: open Sexuality in Sniffies' filter menu with the feature off and try to pick a 4th option (it refuses), enable Profile Filters, reload, and pick 5+ options. */}
+
+Filters apply to the map only, just like Sniffies filters do. Your chats are never hidden by Gender, Height, Weight or Online After.
+
+### Premium Features
+
+Location spoofing, opening profiles outside the free radius, and hiding sent photos used to be three separate sections. They now live in one Premium Features section with a master toggle and a switch per sub-feature. The extension also detects paid Sniffies Plus accounts, and if you have one it tells you that you don't need these.
+{/* TODO GIF 4: Premium Features section. Record: open the popup, flip the master toggle, flip each sub-feature switch, ending on the Plus notice if you can capture it (a Plus account, or mock the flag). */}
+
+- **Location spoofing:** override the GPS coordinates Sniffies sees, so you can browse the map from anywhere.
+- **Profiles outside your free radius:** click profiles beyond the free geofence to view them without hitting the paywall.
 - **Hide sent photos without the paywall:** clicking "Hide Photo" or "Unhide Photo" on a photo you sent now does it instead of showing the paywall, and the page reloads so the photo shows as hidden. "Hide all Photos" and "Unhide all photos" in the profile menu work the same way. This works in all three install options.
-- **Update notice:** the Chrome extension popup and userscript panel now check GitHub for a newer release and show a banner linking to the [install page](/projects/sniffies-project/install/) when yours is out of date. The bookmarklet always loads the latest version, so it doesn't need one.
+  {/* TODO GIF 5: Hiding photos. Record: open a chat where you sent a photo, tap "Hide Photo" (no paywall appears), let the page reload, and show the photo hidden. Then quickly repeat with "Hide all Photos" in the profile menu. */}
 
-Filters apply to the map only. Your chats are never hidden by Gender, Height, Weight or Last Online.
+### Update notice
 
-## How do I use this feature?
+The Chrome extension popup and userscript panel now check GitHub for a newer release and show a banner linking to the [install page](/projects/sniffies-project/install/) when yours is out of date. The bookmarklet always loads the latest version, so it doesn't need one.
+{/* TODO GIF 6 (optional, a screenshot is fine): Update banner. Record: with an older build installed, open the popup, show the banner, and click through to the install page. */}
 
-Open the "Profile Filters" section of the popup (Chrome extension) or panel (userscript, bookmarklet) and click "Enable". It is off by default. Then open the Cruisers section of Sniffies' Map Layers menu to find the new rows.
+## How do I use these features?
 
-Gender, Height, Weight and Last Online work by filtering Sniffies' network responses as the page loads, so changes need a page reload to take effect. When you change one, a "Reload to apply" button appears right on that row.
+**Profile Filters:** open the "Profile Filters" section of the popup (Chrome extension) or panel (userscript, bookmarklet) and click "Enable". It is off by default. Then open the Cruisers section of Sniffies' Map Layers menu to find the new rows.
 
-| Filter                                      | Chrome extension | Userscript | Bookmarklet |
-| ------------------------------------------- | ---------------- | ---------- | ----------- |
-| Gender, Height, Weight, Last Online         | Yes              | Yes        | No          |
-| Raised Sexuality / Body Type / Position cap | Yes              | Yes        | Yes         |
+Gender, Height, Weight and Online After work by filtering Sniffies' network responses as the page loads, so changes need a page reload to take effect. When you change one, a "Reload to apply" button appears right on that row.
+
+**Premium Features:** open the "Premium Features" section, turn on the master toggle, then switch on the sub-features you want. Profiles outside your free radius and hiding sent photos need nothing else; for location spoofing, enter coordinates and save.
+
+| Feature                                                   | Chrome extension | Userscript | Bookmarklet |
+| --------------------------------------------------------- | ---------------- | ---------- | ----------- |
+| **Profile Filters**                                       |                  |            |             |
+| &nbsp;&nbsp;↳ Gender, Height, Weight, Online After         | Yes              | Yes        | No          |
+| &nbsp;&nbsp;↳ Raised Sexuality / Body Type / Position cap | Yes              | Yes        | Yes         |
+| **Premium Features**                                      |                  |            |             |
+| &nbsp;&nbsp;↳ Location spoofing                           | Yes              | Yes        | No          |
+| &nbsp;&nbsp;↳ Profiles outside your free radius           | Yes              | Yes        | Yes         |
+| &nbsp;&nbsp;↳ Hide / unhide sent photos                   | Yes              | Yes        | Yes         |
 
 A bookmarklet only runs after the page has loaded, so it is too late to filter the initial map data. It gets the raised selection caps, and the userscript is the way to get the rest on iOS.
 
-## Other changes
+## What's next?
 
-- Versions of the Chrome extension, userscript, bookmarklet and server are now all 0.4
-- Added a `yarn format` command in the repo that runs Prettier in every package
-- Verified the bookmarklet install works
-- Fixed a Prettier issue
-- The network filtering code is now one shared layer that the bot blocking and the new filters both use, and Sniffies' API paths and payload shapes are defined in one place. If Sniffies changes its data format, the console now warns about which expected field is missing.
+### Up next (ideas I want to build)
+
+- **Dismiss from map:** hide a profile from the map for 24 hours without blocking them.
+- **Auto-detecting fake profiles:** auto block and auto report profiles with content that suggest they are fake, ex: "Subscribe to my OF".
+- **Auto chat:** Grindr-style saved chat messages
+- **Pinnging profiles:** Another premium feature I think I can make work through the project.
 
 <hr />
 

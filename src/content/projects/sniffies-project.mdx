@@ -14,21 +14,43 @@ A set of tools that recreate and expand functionality for [sniffies.com](https:/
 
 ## Features
 
-### Location spoofing
+### Premium Features
+
+Sniffies puts some features behind a paid subscription. "Premium Features" is a group of features which unlock/recreate some of these paid subscription features. If you already have a Sniffies paid subscription, you don't really need me to recreate that paid functionality for you. The panel will detect your subscription and tell you that you can turn this section off.
+
+{/* TODO GIF: Premium Features section. Record: open the panel, flip the master toggle, then flip each sub-feature switch. Could double as the opener for the three sub-feature GIFs below. */}
+
+**How to use it:** open the "Premium Features" section, turn on the master toggle, then switch on the sub-features you want.
+
+#### Location spoofing
 
 Override the GPS coordinates Sniffies sees, so you can browse the map from anywhere.
 
 **Supported on:** Chrome Extension, Userscript (iOS Safari, Tampermonkey on desktop or Android).
 
-**How to use it:** open the extension/userscript panel, enable location spoofing, enter coordinates, and save. It can take a moment for Sniffies to pick up the change — reload the page if it doesn't update right away.
+{/* TODO GIF: Location spoofing. Record: open the panel, enable location spoofing, enter coordinates, save, and show the Sniffies map jump to the new place. ~12s. */}
 
-### Opening profiles outside your free radius
+**How to use it:** switch on "Location spoofing", click "Travel Mode" on the map. Search for a location and click enter. After the search, without shifting the map, click Sniffies' "Travel Here" button. On reload, the map will be centered on the new location.
 
-Click on profiles outside the free geofence to view them without hitting Sniffies' paywall.
+#### Opening profiles outside your free radius
 
-**Supported on:** Chrome Extension, Bookmarklet.
+Click on, view, and chat with profiles outside the free geofence.
 
-**How to use it:** nothing to turn on — just click any profile on the map and the extension handles the rest.
+**Supported on:** Chrome Extension, Userscript, Bookmarklet.
+
+{/* TODO GIF: Profiles outside the radius. Record: pan the map beyond the free radius, click a profile that would normally hit the paywall, and show it open. ~8s. */}
+
+**How to use it:** switch on "Open profiles outside boundary", then click any profile on the map.
+
+#### Hiding sent photos
+
+Hide or unhide photos you've sent. Press on a sent photo until it reveals the options to "Hide Photo" or "Unhide Photo". Or, in the profile menu, click on "Hide all Photos" or "Unhide all photos".
+
+**Supported on:** Chrome Extension, Userscript, Bookmarklet.
+
+{/* TODO GIF: Hiding sent photos. Record: tap "Hide Photo" on a sent photo, show no paywall and the page reloading with the photo hidden. ~8s. */}
+
+**How to use it:** switch on "Hide sent photos", then use the buttons as usual. The page reloads afterward so the photo shows as hidden.
 
 ### Bot reporting & blocking
 
@@ -36,27 +58,19 @@ Flag suspected bot accounts (malware-link spammers, fake "OnlyFans" profiles) fr
 
 **Supported on:** Chrome Extension, Userscript (iOS Safari, Tampermonkey on desktop or Android).
 
-**How to use it:** open the panel and turn on "Block Bot Accounts" — the blocked-account list updates automatically, nothing to maintain. If you come across a bot, tap the report button on its profile and submit a report; validated reports get filtered out for everyone with blocking enabled.
+{/* TODO GIF: Bot reporting. Record: open a bot profile, tap the report button, type a reason, submit; then show the popup counter of blocked bots. ~15s. */}
+
+**How to use it:** open the panel and turn on "Block Bot Accounts". The blocked-account list updates automatically and will filter out any reported bots. If you come across a bot, tap the report button on its profile and submit a report; validated reports get filtered out for everyone with blocking enabled.
 
 ### Profile filters
 
-Extra filters in the Cruisers section of Sniffies' Map Layers menu: Gender, Height, Weight and Last Online. It also lifts the "Choose up to 3" cap on Sniffies' own Sexuality, Body Type and Position filters.
+Extra filters in Sniffies' filter menu: Gender, Height, Weight and Online After. It also lifts the "Choose up to 3" cap on Sniffies' own Sexuality, Body Type and Position filters (up to an arbitrarily high "Choose up to 99").
 
 **Supported on:** Chrome Extension and Userscript for everything; Bookmarklet for the raised selection caps only.
 
-**How to use it:** open the panel, turn on "Profile Filters", then open the Cruisers section of the Map Layers menu. Gender, Height, Weight and Last Online need a page reload after each change — the menu shows a "Reload to apply" button.
+{/* TODO GIF: Profile filters (best candidate for a hero GIF at the top of the page). Record: enable Profile Filters, open Map Layers > Cruisers, set Gender, Height and Online After, tap "Reload to apply", and show the map thinning out. ~20s. */}
 
-### Hiding sent photos
-
-Hide or unhide photos you've sent without hitting Sniffies' paywall. "Hide Photo" / "Unhide Photo" on a sent photo, and "Hide all Photos" / "Unhide all photos" in the profile menu, now perform the action instead of showing the paywall.
-
-**Supported on:** Chrome Extension, Userscript, Bookmarklet.
-
-**How to use it:** nothing to turn on — just use the buttons as usual. The page reloads afterward so the photo shows as hidden.
-
-### Profile online notifications
-
-_In development — not yet available to install._ Favorite a profile and get a text message when they come online.
+**How to use it:** open the panel, turn on "Profile Filters", then open the filter menu. Gender, Height, Weight and Online After will appear in the menu. Changes to these filters require a page reload to take effect, click the "Reload to apply" button to quickly reload.
 
 <LinkButton
   href="/projects/sniffies-project/install/"
@@ -76,37 +90,49 @@ _In development — not yet available to install._ Favorite a profile and get a 
   </thead>
   <tbody>
     <tr>
-      <td>Location spoofing</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td>Profiles outside free radius</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>✅</td>
-    </tr>
-    <tr>
       <td>Bot reporting & blocking</td>
       <td>✅</td>
       <td>✅</td>
       <td>—</td>
     </tr>
     <tr>
-      <td>Hide / unhide sent photos</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>✅</td>
+      <th colspan="4" align="left">
+        Premium Features
+      </th>
     </tr>
     <tr>
-      <td>Profile filters (Gender, Height, Weight, Last Online)</td>
+      <td style="padding-left: 1.5em">↳ Location spoofing</td>
       <td>✅</td>
       <td>✅</td>
       <td>—</td>
     </tr>
     <tr>
-      <td>Raised Sexuality / Body Type / Position selection caps</td>
+      <td style="padding-left: 1.5em">↳ Profiles outside free radius</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 1.5em">↳ Hide / unhide sent photos</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <th colspan="4" align="left">
+        Profile filters
+      </th>
+    </tr>
+    <tr>
+      <td style="padding-left: 1.5em">↳ Gender, Height, Weight, Online After</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td style="padding-left: 1.5em">
+        ↳ Raised Sexuality / Body Type / Position selection caps
+      </td>
       <td>✅</td>
       <td>✅</td>
       <td>✅</td>
