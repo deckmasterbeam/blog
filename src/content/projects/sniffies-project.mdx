@@ -1,0 +1,124 @@
+---
+title: "Sniffies Project"
+date: 2026-06-26
+description: "A set of browser extensions and user scripts to recreate and expand functionality in Sniffies"
+draft: false
+repo: https://github.com/deckmasterbeam/SniffiesProjects
+projectTag: SniffiesProject
+contentWarning: sniffies
+---
+
+import LinkButton from "../../components/ui/LinkButton.astro";
+
+A set of tools that recreate and expand functionality for [sniffies.com](https://sniffies.com), shipped as a Chrome extension and an iOS/desktop/Android userscript, plus a fallback bookmarklet.
+
+## Features
+
+### Location spoofing
+
+Override the GPS coordinates Sniffies sees, so you can browse the map from anywhere.
+
+**Supported on:** Chrome Extension, Userscript (iOS Safari, Tampermonkey on desktop or Android).
+
+**How to use it:** open the extension/userscript panel, enable location spoofing, enter coordinates, and save. It can take a moment for Sniffies to pick up the change — reload the page if it doesn't update right away.
+
+### Opening profiles outside your free radius
+
+Click on profiles outside the free geofence to view them without hitting Sniffies' paywall.
+
+**Supported on:** Chrome Extension, Bookmarklet.
+
+**How to use it:** nothing to turn on — just click any profile on the map and the extension handles the rest.
+
+### Bot reporting & blocking
+
+Flag suspected bot accounts (malware-link spammers, fake "OnlyFans" profiles) from their profile screen. Once a report is validated, that account gets filtered out of the map, chat, and live updates for everyone with blocking enabled.
+
+**Supported on:** Chrome Extension, Userscript (iOS Safari, Tampermonkey on desktop or Android).
+
+**How to use it:** open the panel and turn on "Block Bot Accounts" — the blocked-account list updates automatically, nothing to maintain. If you come across a bot, tap the report button on its profile and submit a report; validated reports get filtered out for everyone with blocking enabled.
+
+### Profile filters
+
+Extra filters in the Cruisers section of Sniffies' Map Layers menu: Gender, Height, Weight and Last Online. It also lifts the "Choose up to 3" cap on Sniffies' own Sexuality, Body Type and Position filters.
+
+**Supported on:** Chrome Extension and Userscript for everything; Bookmarklet for the raised selection caps only.
+
+**How to use it:** open the panel, turn on "Profile Filters", then open the Cruisers section of the Map Layers menu. Gender, Height, Weight and Last Online need a page reload after each change — the menu shows a "Reload to apply" button.
+
+### Hiding sent photos
+
+Hide or unhide photos you've sent without hitting Sniffies' paywall. "Hide Photo" / "Unhide Photo" on a sent photo, and "Hide all Photos" / "Unhide all photos" in the profile menu, now perform the action instead of showing the paywall.
+
+**Supported on:** Chrome Extension, Userscript, Bookmarklet.
+
+**How to use it:** nothing to turn on — just use the buttons as usual. The page reloads afterward so the photo shows as hidden.
+
+### Profile online notifications
+
+_In development — not yet available to install._ Favorite a profile and get a text message when they come online.
+
+<LinkButton
+  href="/projects/sniffies-project/install/"
+  label="Install Sniffies Tools"
+/>
+
+## Platform support at a glance
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Chrome Extension</th>
+      <th>Userscript</th>
+      <th>Bookmarklet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Location spoofing</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Profiles outside free radius</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Bot reporting & blocking</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Hide / unhide sent photos</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Profile filters (Gender, Height, Weight, Last Online)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Raised Sexuality / Body Type / Position selection caps</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+"Userscript" covers three install paths that all run the same build: the Userscripts app on iOS Safari, and Tampermonkey on desktop or Android.
+
+Not sure which build you need?
+
+<LinkButton
+  href="/projects/sniffies-project/install/"
+  label="Pick your platform →"
+/>

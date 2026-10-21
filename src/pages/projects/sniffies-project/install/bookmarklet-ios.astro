@@ -1,0 +1,124 @@
+---
+import InstallPage from "../../../../layouts/InstallPage.astro";
+import InstallTrouble from "../../../../components/ui/InstallTrouble.astro";
+import SniffiesBookmarkletCode from "../../../../components/ui/SniffiesBookmarkletCode.astro";
+---
+
+<InstallPage
+  header="Bookmarklet (iOS)"
+  description="Install the Sniffies Tools bookmarklet on iPhone browsers."
+>
+  <blockquote>
+    <p>
+      <strong>⚠️ Warning: this is the worst experience of the three installs.</strong>
+      A bookmarklet can't install itself like an extension or userscript can. You
+      have to set it up by hand, and then run it manually every time you open or
+      refresh sniffies.com. It also has the fewest features. If you can use the
+      Chrome extension or a userscript instead, do that.
+    </p>
+  </blockquote>
+
+  <p>
+    For Chrome, Firefox, Edge, or any other non-Safari browser on iPhone. Every
+    iOS browser is required to use Safari's engine under the hood, so Safari's <strong
+      >Userscripts</strong
+    > app and extensions like Tampermonkey aren't available outside Safari itself.
+    A bookmarklet is the fallback: a bookmark that runs a bit of code on the page
+    you're on instead of opening a link. It works in Safari too, with no app to install.
+  </p>
+
+  <p>
+    <strong>Heads up:</strong> the bookmarklet supports opening profiles outside
+    your free radius and raising the selection caps on Sniffies' Sexuality, Body Type
+    and Position filters. It can't spoof your location, block bots, or add the Gender,
+    Height, Weight and Last Online filters, because a bookmarklet only runs after
+    the page has already loaded. For those, switch to Safari and use
+    the{" "}
+    <a href="/projects/sniffies-project/install/userscript-ios/">
+      Userscripts app install
+    </a>
+    .
+  </p>
+
+  <h2>Step 1: Copy the Bookmarklet Code</h2>
+  <SniffiesBookmarkletCode />
+
+  <h2>Step 2: Bookmark a Page</h2>
+  <p>
+    iOS browsers won't let you save the code as a bookmark directly, so bookmark
+    any page first (this one works):
+  </p>
+  <ul>
+    <li>
+      <strong>Safari:</strong> tap the Share button, then{" "}
+      <strong>Add Bookmark</strong>
+    </li>
+    <li>
+      <strong>Chrome:</strong> tap <strong>⋯</strong>, then{" "}
+      <strong>Add to Bookmarks</strong>
+    </li>
+  </ul>
+
+  <h2>Step 3: Turn the Bookmark into the Bookmarklet</h2>
+  <ol>
+    <li>
+      Open your bookmarks and tap <strong>Edit</strong>, then tap the bookmark
+      you just added
+    </li>
+    <li>Rename it to "Sniffies Tools"</li>
+    <li>
+      Delete everything in its address/URL field and paste the code from Step 1
+    </li>
+    <li>Save</li>
+  </ol>
+
+  <h2>Using It</h2>
+  <ol>
+    <li>Open sniffies.com and wait for the map to load</li>
+    <li>
+      Run the bookmarklet:
+      <ul>
+        <li>
+          <strong>Safari:</strong> open your bookmarks and tap "Sniffies Tools"
+        </li>
+        <li>
+          <strong>Chrome and others:</strong> tap the address bar, type "Sniffies
+          Tools", and tap the bookmark in the suggestions. Opening it from the bookmarks
+          list may not run it on the current page.
+        </li>
+      </ul>
+    </li>
+    <li>
+      You'll see a "Sniffies Tools loaded!" message, and a Sniffies Tools button
+      will appear in the map's row of icons
+    </li>
+    <li>
+      Tap that button, open{" "}
+      <strong>Open Profiles Outside Boundary</strong>, and tap{" "}
+      <strong>Enable</strong>. Set <strong>Open in</strong> to{" "}
+      <strong>New tab</strong> — opening in the current tab reloads the page, which
+      unloads the bookmarklet.
+    </li>
+    <li>
+      To raise the selection caps, open <strong>Profile Filters</strong>, tap{" "}
+      <strong>Enable</strong>, then open the Cruisers section of Sniffies' Map
+      Layers menu.
+    </li>
+  </ol>
+
+  <p>
+    The bookmarklet only lasts until the page reloads, so run it again each time
+    you open or refresh sniffies.com.
+  </p>
+
+  <h2>Updating</h2>
+  <p>
+    Nothing to do. The bookmark loads the latest version every time you run it.
+  </p>
+
+  <p>
+    If your browser doesn't let you edit a bookmark's URL, or the bookmarklet
+    doesn't run, let me know which browser below and I'll add specific steps.
+  </p>
+  <InstallTrouble />
+</InstallPage>

@@ -1,0 +1,76 @@
+---
+import InstallPage from "../../../../layouts/InstallPage.astro";
+import InstallTrouble from "../../../../components/ui/InstallTrouble.astro";
+import LinkButton from "../../../../components/ui/LinkButton.astro";
+import { getLatestSniffiesRelease } from "../../../../lib/sniffiesReleases";
+
+const { version, userscriptHref } = await getLatestSniffiesRelease();
+---
+
+<InstallPage
+  header="Userscripts App (iOS Safari)"
+  description="Install the Sniffies Tools userscript on iOS Safari via the Userscripts app."
+>
+  <p>For Safari on iPhone. Install via the Userscripts app:</p>
+
+  <h2>Step 1: Install Userscripts App</h2>
+  <ol>
+    <li>
+      Install the <a
+        href="https://apps.apple.com/us/app/userscripts/id1463298887"
+        >Userscripts</a
+      > app
+    </li>
+    <li>Enable it in <strong>Settings → Safari → Extensions</strong></li>
+  </ol>
+  <h2>Step 2: Install the Sniffies Project Userscript</h2>
+  <ol>
+    <li>Tap the install button below to go to the userscript page.</li>
+    <li>
+      On that page, tap the Safari browser button next to the URL (highlighted
+      in red in the screenshot below), then tap the userscript extension.
+    </li>
+    <li>
+      Userscripts will detect the script and prompt you to install it. Tap <strong
+        >Install</strong
+      > (it'll say <strong>Update</strong> instead if you're reinstalling a newer
+      version).
+    </li>
+  </ol>
+
+  <figure>
+    <img
+      src="/images/sniffies-userscript-install-1.PNG"
+      alt="The website settings button in Safari's address bar that opens the extensions menu"
+    />
+    <figcaption>
+      Tap this button in the address bar to access Manage Extensions. In that
+      menu, tap the userscript extension.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img
+      src="/images/sniffies-userscript-install-2.PNG"
+      alt="Userscripts extension prompting the user that a userscript has been detected and offering to install it"
+    />
+    <figcaption>
+      Userscripts will detect the script and prompt you to install (or update)
+      it
+    </figcaption>
+  </figure>
+
+  <LinkButton
+    href={userscriptHref}
+    label={`Install iOS Userscript v${version}`}
+  />
+
+  <h2>Updating</h2>
+  <p>
+    Come back to this page and tap the install button again whenever a new
+    version is released — Userscripts will show
+    <strong>Update</strong> instead of <strong>Install</strong>.
+  </p>
+
+  <InstallTrouble />
+</InstallPage>

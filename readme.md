@@ -133,6 +133,8 @@ repo: https://github.com/you/linkedin-extension
 
 The `repo` field is optional and only meaningful on release posts. When present, PostCard renders a "View repo" link.
 
+Set `private: true` on a release post to pull it from the public site (no page, and it's left out of the releases list and project pages).
+
 ### Project Landing Pages
 
 Project landing pages are Markdown posts tagged `projectLanding` (not static `.astro` files). They're served at `/projects/[slug]` and automatically list all release posts that share the project's tag. No manual wiring needed — just tag them consistently.

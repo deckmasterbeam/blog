@@ -1,0 +1,54 @@
+---
+import InstallPage from "../../../../layouts/InstallPage.astro";
+import InstallTrouble from "../../../../components/ui/InstallTrouble.astro";
+import LinkButton from "../../../../components/ui/LinkButton.astro";
+import { getLatestSniffiesRelease } from "../../../../lib/sniffiesReleases";
+
+const { version, userscriptHref } = await getLatestSniffiesRelease();
+---
+
+<InstallPage
+  header="Userscript via Tampermonkey (Desktop)"
+  description="Install the Sniffies Tools userscript via Tampermonkey on desktop."
+>
+  <p>
+    For Safari, Firefox, or any other non-Chromium desktop browser, install the
+    userscript build via <a href="https://www.tampermonkey.net/">Tampermonkey</a
+    >.
+  </p>
+
+  <h2>Step 1: Install Tampermonkey</h2>
+  <ol>
+    <li>
+      Install <a href="https://www.tampermonkey.net/">Tampermonkey</a> for your browser
+    </li>
+    <li>
+      The Mac App Store for Safari, addons.mozilla.org for Firefox, or the
+      tampermonkey.net site has links for everything else
+    </li>
+  </ol>
+
+  <h2>Step 2: Install the Sniffies Project Userscript</h2>
+  <ol>
+    <li>Click the install button below.</li>
+    <li>Tampermonkey will detect the script and prompt you to install it.</li>
+    <li>
+      Click <strong>Install</strong> (it'll say <strong>Update</strong> instead if
+      you're reinstalling a newer version).
+    </li>
+  </ol>
+
+  <LinkButton
+    href={userscriptHref}
+    label={`Install Tampermonkey Userscript v${version}`}
+  />
+
+  <h2>Updating</h2>
+  <p>
+    Come back to this page and click the install button again whenever a new
+    version is released — Tampermonkey will show
+    <strong>Update</strong> instead of <strong>Install</strong>.
+  </p>
+
+  <InstallTrouble />
+</InstallPage>

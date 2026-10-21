@@ -5,9 +5,10 @@ description: "Improve version control"
 draft: false
 projectTag: SniffiesProject
 contentWarning: sniffies
+private: true
 ---
 
-import SniffiesInstallInstructions from "../../components/ui/SniffiesInstallInstructions.astro";
+import SniffiesInstallPicker from "../../components/ui/SniffiesInstallPicker.astro";
 import SniffiesPrivacyPolicy from "../../components/ui/SniffiesPrivacyPolicy.astro";
 
 ## Intro
@@ -25,8 +26,10 @@ This project will keep getting small, incremental improvements over time, so thi
 - Added release and versioning infrastructure so release posts can link to specific tagged versions
 - Componentized the install and privacy policy to be astro components I can add to every release post
 
-## Installation
+<hr />
 
-<SniffiesInstallInstructions version="0.2" />
+<SniffiesInstallPicker />
+
+<hr />
 
 <SniffiesPrivacyPolicy />

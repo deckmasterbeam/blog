@@ -1,0 +1,39 @@
+---
+import { bookmarkletCode } from "../../lib/sniffiesBookmarklet";
+---
+
+<!-- prettier-ignore -->
+<pre class="bookmarklet-code"><code>{bookmarkletCode}</code></pre>
+
+<button type="button" class="bookmarklet-copy" data-code={bookmarkletCode}>
+  Copy code
+</button>
+
+<script>
+  document
+    .querySelectorAll<HTMLButtonElement>(".bookmarklet-copy")
+    .forEach((button) =>
+      button.addEventListener("click", async () => {
+        await navigator.clipboard.writeText(button.dataset.code!);
+        button.textContent = "Copied";
+      }),
+    );
+</script>
+
+<style>
+  .bookmarklet-code {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .bookmarklet-copy {
+    padding: 0.6rem 1.25rem;
+    background: var(--color-accent);
+    color: var(--color-accent-text);
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+</style>

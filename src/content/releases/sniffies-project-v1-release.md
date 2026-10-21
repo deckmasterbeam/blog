@@ -6,3 +6,9 @@ draft: true
 projectTag: SniffiesProject
 contentWarning: sniffies
 ---
+
+#TODO
+
+<hr />
+
+<SniffiesPrivacyPolicy />
