@@ -1,0 +1,55 @@
+---
+import { resolveEmbed } from "../lib/embeds";
+
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+const embed = resolveEmbed(url);
+---
+
+{
+  embed.kind === "linkedin" && (
+    <div class="embed embed-linkedin">
+      <iframe
+        src={embed.src}
+        height="570"
+        width="504"
+        frameborder="0"
+        allowfullscreen
+        title="Embedded LinkedIn post"
+      />
+    </div>
+  )
+}
+{
+  embed.kind === "link" && (
+    <div class="embed embed-link">
+      <a href={embed.url} target="_blank" rel="noopener noreferrer">
+        {embed.url} &#8599;
+      </a>
+    </div>
+  )
+}
+
+<style>
+  .embed {
+    margin-top: 2rem;
+  }
+
+  .embed-linkedin {
+    max-width: 504px;
+  }
+
+  .embed-linkedin iframe {
+    max-width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+  }
+
+  .embed-link a {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+  }
+</style>

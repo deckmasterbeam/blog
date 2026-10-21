@@ -51,4 +51,17 @@ const releases = defineCollection({
   }),
 });
 
-export const collections = { blog, projects, releases };
+const career = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    description: z.string(),
+    draft: z.boolean().default(false),
+    company: z.string().optional(),
+    embedUrl: z.string().url().optional(), // e.g. a LinkedIn post, YouTube video, or tweet to embed
+    contentWarning: z.enum(contentWarningKeys).optional(), // key into contentWarnings.ts
+  }),
+});
+
+export const collections = { blog, projects, releases, career };
