@@ -16,7 +16,7 @@ A set of tools that recreate and expand functionality for [sniffies.com](https:/
 
 ### Premium Features
 
-Sniffies puts some features behind a paid subscription. Premium Features groups the ones the extension can unlock into one section of the panel, with a master toggle and a switch for each sub-feature. If you already have Sniffies Plus, the panel tells you that you don't need them.
+Sniffies puts some features behind a paid subscription. "Premium Features" is a group of features which unlock/recreate some of these paid subscription features. If you already have a Sniffies paid subscription, you don't really need me to recreate that paid functionality for you. The panel will detect your subscription and tell you that you can turn this section off.
 
 {/* TODO GIF: Premium Features section. Record: open the panel, flip the master toggle, then flip each sub-feature switch. Could double as the opener for the three sub-feature GIFs below. */}
 
@@ -30,11 +30,11 @@ Override the GPS coordinates Sniffies sees, so you can browse the map from anywh
 
 {/* TODO GIF: Location spoofing. Record: open the panel, enable location spoofing, enter coordinates, save, and show the Sniffies map jump to the new place. ~12s. */}
 
-**How to use it:** switch on "Location spoofing", enter coordinates, and save. It can take a moment for Sniffies to pick up the change — reload the page if it doesn't update right away.
+**How to use it:** switch on "Location spoofing", click "Travel Mode" on the map. Search for a location and click enter. After the search, without shifting the map, click Sniffies' "Travel Here" button. On reload, the map will be centered on the new location.
 
 #### Opening profiles outside your free radius
 
-Click on profiles outside the free geofence to view them without hitting Sniffies' paywall.
+Click on, view, and chat with profiles outside the free geofence.
 
 **Supported on:** Chrome Extension, Userscript, Bookmarklet.
 
@@ -44,7 +44,7 @@ Click on profiles outside the free geofence to view them without hitting Sniffie
 
 #### Hiding sent photos
 
-Hide or unhide photos you've sent without hitting Sniffies' paywall. "Hide Photo" / "Unhide Photo" on a sent photo, and "Hide all Photos" / "Unhide all photos" in the profile menu, now perform the action instead of showing the paywall.
+Hide or unhide photos you've sent. Press on a sent photo until it reveals the options to "Hide Photo" or "Unhide Photo". Or, in the profile menu, click on "Hide all Photos" or "Unhide all photos".
 
 **Supported on:** Chrome Extension, Userscript, Bookmarklet.
 
@@ -60,23 +60,17 @@ Flag suspected bot accounts (malware-link spammers, fake "OnlyFans" profiles) fr
 
 {/* TODO GIF: Bot reporting. Record: open a bot profile, tap the report button, type a reason, submit; then show the popup counter of blocked bots. ~15s. */}
 
-**How to use it:** open the panel and turn on "Block Bot Accounts" — the blocked-account list updates automatically, nothing to maintain. If you come across a bot, tap the report button on its profile and submit a report; validated reports get filtered out for everyone with blocking enabled.
+**How to use it:** open the panel and turn on "Block Bot Accounts". The blocked-account list updates automatically and will filter out any reported bots. If you come across a bot, tap the report button on its profile and submit a report; validated reports get filtered out for everyone with blocking enabled.
 
 ### Profile filters
 
-Extra filters in the Cruisers section of Sniffies' Map Layers menu: Gender, Height, Weight and Online After. It also lifts the "Choose up to 3" cap on Sniffies' own Sexuality, Body Type and Position filters.
+Extra filters in Sniffies' filter menu: Gender, Height, Weight and Online After. It also lifts the "Choose up to 3" cap on Sniffies' own Sexuality, Body Type and Position filters (up to an arbitrarily high "Choose up to 99").
 
 **Supported on:** Chrome Extension and Userscript for everything; Bookmarklet for the raised selection caps only.
 
 {/* TODO GIF: Profile filters (best candidate for a hero GIF at the top of the page). Record: enable Profile Filters, open Map Layers > Cruisers, set Gender, Height and Online After, tap "Reload to apply", and show the map thinning out. ~20s. */}
 
-**How to use it:** open the panel, turn on "Profile Filters", then open the Cruisers section of the Map Layers menu. Gender, Height, Weight and Online After need a page reload after each change — the menu shows a "Reload to apply" button.
-
-### Profile online notifications
-
-_In development — not yet available to install._ Favorite a profile and get a text message when they come online.
-
-{/* TODO GIF: Install. Record the fastest install path (Chrome extension or userscript) start to finish, to help people who scroll straight to the install button. Could live on the install pages instead. */}
+**How to use it:** open the panel, turn on "Profile Filters", then open the filter menu. Gender, Height, Weight and Online After will appear in the menu. Changes to these filters require a page reload to take effect, click the "Reload to apply" button to quickly reload.
 
 <LinkButton
   href="/projects/sniffies-project/install/"
