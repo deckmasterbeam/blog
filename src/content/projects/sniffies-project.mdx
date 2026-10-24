@@ -10,27 +10,29 @@ contentWarning: sniffies
 
 import LinkButton from "../../components/ui/LinkButton.astro";
 
-A set of tools that recreate and expand functionality for [sniffies.com](https://sniffies.com), shipped as a Chrome extension and an iOS/desktop/Android userscript, plus a fallback bookmarklet.
+The "Sniffies Project" is a set of tools that recreate and expand functionality for [sniffies.com](https://sniffies.com). It builds as a Chrome extension, an iOS/desktop/Android userscript, and a bookmarklet.
+
+**Account types:** This tool has only been tested against free and paid Sniffies accounts. It has not been tested against anonymous accounts.
 
 ## Features
 
 ### Premium Features
 
-Sniffies puts some features behind a paid subscription. "Premium Features" is a group of features which unlock/recreate some of these paid subscription features. If you already have a Sniffies paid subscription, you don't really need me to recreate that paid functionality for you. The panel will detect your subscription and tell you that you can turn this section off.
+Sniffies puts some features behind a paid subscription. "Premium Features" is a group of features that unlock/recreate some of these paid subscription features. If you already have a Sniffies paid subscription, you don't really need me to recreate that paid functionality for you. The panel will detect a paid subscription and tell you that you can turn this set of features off.
 
 {/* TODO GIF: Premium Features section. Record: open the panel, flip the master toggle, then flip each sub-feature switch. Could double as the opener for the three sub-feature GIFs below. */}
 
-**How to use it:** open the "Premium Features" section, turn on the master toggle, then switch on the sub-features you want.
+**How to use it:** open the "Premium Features" section, turn on the toggle, then turn on whichever sub-features you want.
 
 #### Location spoofing
 
-Override the GPS coordinates Sniffies sees, so you can browse the map from anywhere.
+Override the GPS coordinates Sniffies sees so that you can browse the map from anywhere.
 
-**Supported on:** Chrome Extension, Userscript (iOS Safari, Tampermonkey on desktop or Android).
+**Supported on:** Chrome Extension, Userscript (iOS Safari, Tampermonkey on desktop or Android). **Not supported on the bookmarklet.**
 
 {/* TODO GIF: Location spoofing. Record: open the panel, enable location spoofing, enter coordinates, save, and show the Sniffies map jump to the new place. ~12s. */}
 
-**How to use it:** switch on "Location spoofing", click "Travel Mode" on the map. Search for a location and click enter. After the search, without shifting the map, click Sniffies' "Travel Here" button. On reload, the map will be centered on the new location.
+**How to use it:** switch on "Location spoofing", then click "Travel Mode" on the map. Search for a location and press enter. After the search completes (don't manually move the map), click Sniffies' "Travel Here" button. On reload, the map will be centered on the searched location.
 
 #### Opening profiles outside your free radius
 
@@ -44,7 +46,7 @@ Click on, view, and chat with profiles outside the free geofence.
 
 #### Hiding sent photos
 
-Hide or unhide photos you've sent. Press on a sent photo until it reveals the options to "Hide Photo" or "Unhide Photo". Or, in the profile menu, click on "Hide all Photos" or "Unhide all photos".
+Hide or unhide photos you've sent. Press on a sent photo until it reveals the options to "Hide Photo" or "Unhide Photo". Or, in the profile menu, click "Hide all Photos" or "Unhide all Photos".
 
 **Supported on:** Chrome Extension, Userscript, Bookmarklet.
 
@@ -54,7 +56,7 @@ Hide or unhide photos you've sent. Press on a sent photo until it reveals the op
 
 ### Bot reporting & blocking
 
-Flag suspected bot accounts (malware-link spammers, fake "OnlyFans" profiles) from their profile screen. Once a report is validated, that account gets filtered out of the map, chat, and live updates for everyone with blocking enabled.
+Report suspected bot accounts (malware-link spammers, fake "OnlyFans" profiles) from their profile screen. Once a report is validated, that account gets filtered out of the map, chat, and live updates for everyone with blocking enabled.
 
 **Supported on:** Chrome Extension, Userscript (iOS Safari, Tampermonkey on desktop or Android).
 
@@ -64,13 +66,13 @@ Flag suspected bot accounts (malware-link spammers, fake "OnlyFans" profiles) fr
 
 ### Profile filters
 
-Extra filters in Sniffies' filter menu: Gender, Height, Weight and Online After. It also lifts the "Choose up to 3" cap on Sniffies' own Sexuality, Body Type and Position filters (up to an arbitrarily high "Choose up to 99").
+Adds extra filters to Sniffies' filter menu: Gender, Height, Weight and Online After. It also lifts the "Choose up to 3" cap on Sniffies' own Sexuality, Body Type and Position filters (raising it to an arbitrarily high "Choose up to 99").
 
 **Supported on:** Chrome Extension and Userscript for everything; Bookmarklet for the raised selection caps only.
 
 {/* TODO GIF: Profile filters (best candidate for a hero GIF at the top of the page). Record: enable Profile Filters, open Map Layers > Cruisers, set Gender, Height and Online After, tap "Reload to apply", and show the map thinning out. ~20s. */}
 
-**How to use it:** open the panel, turn on "Profile Filters", then open the filter menu. Gender, Height, Weight and Online After will appear in the menu. Changes to these filters require a page reload to take effect, click the "Reload to apply" button to quickly reload.
+**How to use it:** open the panel, turn on "Profile Filters", then open the filter menu. Gender, Height, Weight and Online After will appear in the menu. Changes to these filters require a page reload to take effect. Click the "Reload to apply" button to reload quickly.
 
 <LinkButton
   href="/projects/sniffies-project/install/"
