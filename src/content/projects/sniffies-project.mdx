@@ -12,7 +12,7 @@ import LinkButton from "../../components/ui/LinkButton.astro";
 
 The "Sniffies Project" is a set of tools that recreate and expand functionality for [sniffies.com](https://sniffies.com). It builds as a Chrome extension, an iOS/desktop/Android userscript, and a bookmarklet.
 
-**Account types:** is tool is only tested against free and paid Sniffies accounts. It has not been tested against anonymous accounts.
+**Account types:** This tool has only been tested against free and paid Sniffies accounts. It has not been tested against anonymous accounts.
 
 ## Features
 
@@ -32,7 +32,7 @@ Override the GPS coordinates Sniffies sees so that you can browse the map from a
 
 {/* TODO GIF: Location spoofing. Record: open the panel, enable location spoofing, enter coordinates, save, and show the Sniffies map jump to the new place. ~12s. */}
 
-**How to use it:** switch on "Location spoofing", click "Travel Mode" on the map. Search for a location and press enter. After the search completes (don't manually move the map), click Sniffies' "Travel Here" button. On reload, the map will be centered on the searched location.
+**How to use it:** switch on "Location spoofing", then click "Travel Mode" on the map. Search for a location and press enter. After the search completes (don't manually move the map), click Sniffies' "Travel Here" button. On reload, the map will be centered on the searched location.
 
 #### Opening profiles outside your free radius
 
@@ -46,7 +46,7 @@ Click on, view, and chat with profiles outside the free geofence.
 
 #### Hiding sent photos
 
-Hide or unhide photos you've sent. Press on a sent photo until it reveals the options to "Hide Photo" or "Unhide Photo". Or, in the profile menu, click on "Hide all Photos" or "Unhide all photos".
+Hide or unhide photos you've sent. Press on a sent photo until it reveals the options to "Hide Photo" or "Unhide Photo". Or, in the profile menu, click "Hide all Photos" or "Unhide all Photos".
 
 **Supported on:** Chrome Extension, Userscript, Bookmarklet.
 
@@ -66,13 +66,13 @@ Report suspected bot accounts (malware-link spammers, fake "OnlyFans" profiles) 
 
 ### Profile filters
 
-Extra filters in Sniffies' filter menu: Gender, Height, Weight and Online After. It also lifts the "Choose up to 3" cap on Sniffies' own Sexuality, Body Type and Position filters (up to an arbitrarily high "Choose up to 99").
+Adds extra filters to Sniffies' filter menu: Gender, Height, Weight and Online After. It also lifts the "Choose up to 3" cap on Sniffies' own Sexuality, Body Type and Position filters (raising it to an arbitrarily high "Choose up to 99").
 
 **Supported on:** Chrome Extension and Userscript for everything; Bookmarklet for the raised selection caps only.
 
 {/* TODO GIF: Profile filters (best candidate for a hero GIF at the top of the page). Record: enable Profile Filters, open Map Layers > Cruisers, set Gender, Height and Online After, tap "Reload to apply", and show the map thinning out. ~20s. */}
 
-**How to use it:** open the panel, turn on "Profile Filters", then open the filter menu. Gender, Height, Weight and Online After will appear in the menu. Changes to these filters require a page reload to take effect, click the "Reload to apply" button to quickly reload.
+**How to use it:** open the panel, turn on "Profile Filters", then open the filter menu. Gender, Height, Weight and Online After will appear in the menu. Changes to these filters require a page reload to take effect. Click the "Reload to apply" button to reload quickly.
 
 <LinkButton
   href="/projects/sniffies-project/install/"
