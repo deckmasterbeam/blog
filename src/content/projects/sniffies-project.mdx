@@ -9,6 +9,10 @@ contentWarning: sniffies
 ---
 
 import LinkButton from "../../components/ui/LinkButton.astro";
+import Carousel from "../../components/ui/Carousel.astro";
+
+import locationSpoof1 from "../media/sniffies-project-v04-location-spoof-1.png";
+import locationSpoof2 from "../media/sniffies-project-v04-location-spoof-2.png";
 
 The "Sniffies Project" is a set of tools that recreate and expand functionality for [sniffies.com](https://sniffies.com). It builds as a Chrome extension, an iOS/desktop/Android userscript, and a bookmarklet.
 
@@ -30,7 +34,12 @@ Override the GPS coordinates Sniffies sees so that you can browse the map from a
 
 **Supported on:** Chrome Extension, Userscript (iOS Safari, Tampermonkey on desktop or Android). **Not supported on the bookmarklet.**
 
-{/* TODO GIF: Location spoofing. Record: open the panel, enable location spoofing, enter coordinates, save, and show the Sniffies map jump to the new place. ~12s. */}
+<Carousel
+  images={[
+    { src: locationSpoof1, alt: "Location spoofing start" },
+    { src: locationSpoof2, alt: "Location spoofing after search" },
+  ]}
+/>
 
 **How to use it:** switch on "Location spoofing", then click "Travel Mode" on the map. Search for a location and press enter. After the search completes (don't manually move the map), click Sniffies' "Travel Here" button. On reload, the map will be centered on the searched location.
 
@@ -70,7 +79,16 @@ Adds extra filters to Sniffies' filter menu: Gender, Height, Weight and Online A
 
 **Supported on:** Chrome Extension and Userscript for everything; Bookmarklet for the raised selection caps only.
 
-{/* TODO GIF: Profile filters (best candidate for a hero GIF at the top of the page). Record: enable Profile Filters, open Map Layers > Cruisers, set Gender, Height and Online After, tap "Reload to apply", and show the map thinning out. ~20s. */}
+<Carousel
+  images={[
+    { src: genderFilter, alt: "Gender filter in the profile" },
+    { src: heightFilter, alt: "Height filter in the profile" },
+    { src: weightFilter, alt: "Weight filter in the profile" },
+    { src: sexualityFilter, alt: "Sexuality filter in the profile" },
+    { src: bodyFilter, alt: "Body type filter in the profile" },
+    { src: positionFilter, alt: "Position filter in the profile" },
+  ]}
+/>
 
 **How to use it:** open the panel, turn on "Profile Filters", then open the filter menu. Gender, Height, Weight and Online After will appear in the menu. Changes to these filters require a page reload to take effect. Click the "Reload to apply" button to reload quickly.
 

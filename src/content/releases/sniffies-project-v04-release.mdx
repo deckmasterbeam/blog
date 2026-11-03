@@ -1,5 +1,5 @@
 ---
-title: "Sniffies Project v0.4: Profile Filters"
+title: "Sniffies Project v0.4.1: Profile Filters"
 date: 2026-10-10
 description: "New filters in Sniffies' filter menu and changes to existing Sniffies filters. UX improvement on evading the free radius"
 draft: false
@@ -9,10 +9,18 @@ contentWarning: sniffies
 
 import SniffiesInstallPicker from "../../components/ui/SniffiesInstallPicker.astro";
 import SniffiesPrivacyPolicy from "../../components/ui/SniffiesPrivacyPolicy.astro";
+import Carousel from "../../components/ui/Carousel.astro";
+
+import heightFilter from "../media/sniffies-project-v04-height-filter.png";
+import weightFilter from "../media/sniffies-project-v04-weight-filter.png";
+import genderFilter from "../media/sniffies-project-v04-gender-filter.png";
+import bodyFilter from "../media/sniffies-project-v04-body-filter.png";
+import sexualityFilter from "../media/sniffies-project-v04-sexuality-filter.png";
+import positionFilter from "../media/sniffies-project-v04-position-filter.png";
 
 ## What's new?
 
-This release adds more filters to the Sniffies filter menu. Someone on the sniffies subreddit also posted about how they felt like being able to hide sent pictures should be a free feature. After my experience building around the free user radius, I felt like this would be another premium feature I could tackle. Now with 3 premium features added, I felt like reoragnizing this set of features under a single "premium features" section. I have more ideas for working within this space, but thats for 0.5, or the 1.0 release post, whichever comes first.
+This release adds more filters to the Sniffies filter menu. Someone on the Sniffies subreddit also posted that being able to hide sent pictures should be a free feature. After my experience building around the free user radius, I felt this was another premium feature I could tackle. With three premium features now added, I reorganized them under a single "Premium Features" section. I have more ideas for working in this space, but that's for 0.5 or the 1.0 release post, whichever comes first.
 
 ### Profile Filters
 
@@ -20,17 +28,34 @@ The Sniffies filter menu only goes so far. My Profile Filters add more filters t
 
 - **Gender:** an on/off switch to show Male, Female, Nonbinary, or gender Not specified. Pick as many as you like; at least one must be selected.
 - **Height and Weight:** new filters under "Cruiser Stats". You can set only a minimum, only a maximum, or both. Units follow your locale (ft/lb or cm/kg), and you can choose whether to show profiles that don't list a value at all.
-  {/* TODO GIF 1: Height/Weight sheet. Record: open Map Layers > Cruisers, tap Height, set a min and max, toggle "show profiles that don't list it", close the sheet, tap "Reload to apply", and show the map thin out. ~15s. */}
-- **Online After:** a filter similar to "Cruising Now". I don't like how the "Crusing Now" setting is so jittery, profiles show up and disappear as guys log on and off. Users can choose a lookback period of time between 15 minutes ago to 48 hours ago. When a lookback is choosen and the page is reloaded, only profiles online more recently than the selected point in time will be shown. The selected time does not roll forward (Choosing 15 min ago at 8:00PM will filter for profiles online after 7:45PM. At 8:30PM, the project will still be filtering for profiles online after 7:45PM).
-  {/* TODO GIF 2: Online After. Record: tap Select, scroll the sheet, pick a window, toggle it on, tap "Reload to apply", and show offline people disappearing. Could be combined with GIF 1 as one "new filters" GIF. */}
-- **No cap on Sexuality, Body Type and Position:** Sniffies limits these to "Choose up to 3" (4 for Position). But, the number of selected values is ultimately arbitrary. With Profile Filters on, the limit is raised to 99 (arbitrarily high value).
-  {/* TODO GIF 3 (~8s): Raised caps. Record: open Sexuality in Sniffies' filter menu with the feature off and try to pick a 4th option (it refuses), enable Profile Filters, reload, and pick 5+ options. */}
+
+<Carousel
+  images={[
+    { src: heightFilter, alt: "Height filter in the profile" },
+    { src: weightFilter, alt: "Weight filter in the profile" },
+    { src: genderFilter, alt: "Gender filter in the profile" },
+  ]}
+/>
+
+- **Online After:** a filter similar to "Cruising Now". I don't like how the "Cruising Now" setting is so jittery: profiles show up and disappear as guys log on and off. Users can choose a lookback period between 15 minutes and 48 hours. When a lookback is chosen and the page is reloaded, only profiles online more recently than the selected point in time will be shown. The selected time does not roll forward (Choosing 15 minutes ago at 8:00 PM will filter for profiles online after 7:45 PM. At 8:30 PM, the project will still be filtering for profiles online after 7:45 PM.)
+
+![Example of the online after](../media/sniffies-project-v04-online-after.png)
+
+- **No cap on Sexuality, Body Type and Position:** Sniffies limits these to "Choose up to 3" (4 for Position). But the number of selected values is ultimately arbitrary. With Profile Filters on, the limit is raised to 99 (arbitrarily high value).
+
+<Carousel
+  images={[
+    { src: bodyFilter, alt: "Body type filter in the profile" },
+    { src: sexualityFilter, alt: "Sexuality filter in the profile" },
+
+  ]}
+/>
 
 Filters apply to the map only, just like Sniffies filters do. Your chats are never hidden by Gender, Height, Weight or Online After.
 
 ### Premium Features
 
-Location spoofing, opening profiles outside the free radius, and hiding sent photos used to be three separate sections. They now live in one Premium Features section with a master toggle and a switch per sub-feature. The extension also detects paid Sniffies Plus accounts, and if you have one it tells you that you don't need these.
+Location spoofing, opening profiles outside the free radius, and hiding sent photos used to be three separate sections. They now live in one Premium Features section with a master toggle and a switch per sub-feature. The extension also detects paid Sniffies Plus accounts, and if you have one, it tells you that you don't need these.
 {/* TODO GIF 4: Premium Features section. Record: open the popup, flip the master toggle, flip each sub-feature switch, ending on the Plus notice if you can capture it (a Plus account, or mock the flag). */}
 
 - **Location spoofing:** override the GPS coordinates Sniffies sees, so you can browse the map from anywhere.
@@ -65,12 +90,10 @@ A bookmarklet only runs after the page has loaded, so it is too late to filter t
 
 ## What's next?
 
-### Up next (ideas I want to build)
-
 - **Dismiss from map:** hide a profile from the map for 24 hours without blocking them.
-- **Auto-detecting fake profiles:** auto block and auto report profiles with content that suggest they are fake, ex: "Subscribe to my OF".
-- **Auto chat:** Grindr-style saved chat messages
-- **Pinnging profiles:** Another premium feature I think I can make work through the project.
+- **Auto-detecting fake profiles:** auto-block and auto-report profiles with content that suggests they are fake, e.g., "Subscribe to my OF".
+- **Auto chat:** Grindr-style saved chat messages.
+- **Pinning profiles:** another premium feature I think I can make work through the project.
 
 <hr />
 
