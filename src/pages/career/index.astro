@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PostCard from "../../components/PostCard.astro";
+
+const posts = (
+  await getCollection("career", ({ data }) => !data.draft)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title="Career">
+  <h1>Career</h1>
+  {
+    posts.map((post) => (
+      <PostCard
+        type="career"
+        title={post.data.title}
+        date={post.data.date}
+        description={post.data.description}
+        slug={post.id.replace(/\.(md|mdx)$/, "")}
+      />
+    ))
+  }
+</Base>
+
+<style>
+  h1 {
+    font-size: 1.5rem;
+    margin: 1rem 0 0.5rem;
+  }
+</style>

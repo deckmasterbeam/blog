@@ -23,4 +23,12 @@ export type ProjectPost = {
   slug: string;
 };
 
-export type Post = BlogPost | ReleasePost | ProjectPost;
+export type CareerPost = {
+  type: "career";
+  title: string;
+  date: Date;
+  description: string;
+  slug: string;
+};
+
+export type Post = BlogPost | ReleasePost | ProjectPost | CareerPost;

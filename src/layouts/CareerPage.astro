@@ -1,0 +1,87 @@
+---
+import Base from "./Base.astro";
+import ContentWarningGate from "../components/ContentWarningGate.astro";
+import Embed from "../components/Embed.astro";
+import type { ContentWarningKey } from "../content/contentWarnings";
+
+interface Props {
+  title: string;
+  date: Date;
+  description: string;
+  company?: string;
+  embedUrl?: string;
+  contentWarning?: ContentWarningKey;
+}
+
+const { title, date, description, company, embedUrl, contentWarning } =
+  Astro.props;
+const formatted = date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<Base title={title} description={description}>
+  <article>
+    <header>
+      <time datetime={date.toISOString()}>{formatted}</time>
+      <h1>{title}</h1>
+      {company && <p class="company">{company}</p>}
+    </header>
+    <ContentWarningGate warningKey={contentWarning}>
+      <div class="content">
+        <slot />
+      </div>
+      {embedUrl && <Embed url={embedUrl} />}
+    </ContentWarningGate>
+  </article>
+</Base>
+
+<style>
+  article {
+    padding-top: 1rem;
+  }
+
+  header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  time {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+
+  h1 {
+    margin: 0.5rem 0 0.25rem;
+    font-size: 1.75rem;
+    line-height: 1.3;
+  }
+
+  .company {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  .content :global(h2) {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+  }
+
+  .content :global(h3) {
+    margin-top: 1.5rem;
+    font-size: 1.05rem;
+  }
+
+  .content :global(p) {
+    margin: 1rem 0;
+  }
+
+  .content :global(ul),
+  .content :global(ol) {
+    padding-left: 1.5rem;
+  }
+</style>
