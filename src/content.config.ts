@@ -53,10 +53,10 @@ const releases = defineCollection({
 });
 
 const career = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/career" }),
   schema: z.object({
     title: z.string(),
-    date: z.date(),
+    date: z.coerce.date(),
     description: z.string(),
     draft: z.boolean().default(false),
     company: z.string().optional(),
