@@ -2,9 +2,9 @@
 import InstallPage from "../../../../layouts/InstallPage.astro";
 import InstallTrouble from "../../../../components/ui/InstallTrouble.astro";
 import LinkButton from "../../../../components/ui/LinkButton.astro";
-import { getLatestSniffiesRelease } from "../../../../lib/sniffiesReleases";
+import { getSniffiesRelease } from "../../../../lib/sniffiesReleases";
 
-const { version, userscriptHref } = await getLatestSniffiesRelease();
+const { version, userscriptHref } = await getSniffiesRelease(Astro.props.version);
 ---
 
 <InstallPage
@@ -28,6 +28,8 @@ const { version, userscriptHref } = await getLatestSniffiesRelease();
     </li>
   </ol>
 
+  <!-- TODO screenshot: Step 1. Tampermonkey in the Safari/Firefox add-on page, and the extension pinned in the toolbar. -->
+
   <h2>Step 2: Install the Sniffies Project Userscript</h2>
   <ol>
     <li>Click the install button below.</li>
@@ -42,6 +44,8 @@ const { version, userscriptHref } = await getLatestSniffiesRelease();
     href={userscriptHref}
     label={`Install Tampermonkey Userscript v${version}`}
   />
+
+  <!-- TODO screenshot: Step 2. The Tampermonkey install prompt page for the userscript with the Install button highlighted, then the script showing as enabled in the Tampermonkey dashboard. -->
 
   <h2>Updating</h2>
   <p>

@@ -1,16 +1,20 @@
 ---
+// With a version, the userscript/extension options link to that version's install pages.
+const { version } = Astro.props;
+const base = "/projects/sniffies-project/install/";
+const vbase = version ? `${base}v/${version}/` : base;
 const options: { platform: string; href: string }[] = [
   {
     platform: "Chrome (or any Chromium browser) on Desktop",
-    href: "/projects/sniffies-project/install/chrome-desktop/",
+    href: `${vbase}chrome-desktop/`,
   },
   {
     platform: "Safari (or any other non-Chromium browser) on Desktop",
-    href: "/projects/sniffies-project/install/tampermonkey-desktop/",
+    href: `${vbase}tampermonkey-desktop/`,
   },
   {
     platform: "Safari on iPhone",
-    href: "/projects/sniffies-project/install/userscript-ios/",
+    href: `${vbase}userscript-ios/`,
   },
   {
     platform: "Any other browser on iPhone",
@@ -18,7 +22,7 @@ const options: { platform: string; href: string }[] = [
   },
   {
     platform: "Firefox on Android",
-    href: "/projects/sniffies-project/install/tampermonkey-android/",
+    href: `${vbase}tampermonkey-android/`,
   },
   {
     platform: "Any other browser on Android",
