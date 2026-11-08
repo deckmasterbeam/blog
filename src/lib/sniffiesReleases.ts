@@ -24,13 +24,18 @@ export function getLatestSniffiesRelease(): Promise<SniffiesRelease> {
 }
 
 async function fetchLatest(): Promise<SniffiesRelease> {
-  const res = await fetch(
-    "https://api.github.com/repos/deckmasterbeam/SniffiesProjects/releases?per_page=30",
-  );
-  if (!res.ok) {
-    throw new Error(
-      `getLatestSniffiesRelease: failed to fetch releases (${res.status})`,
+  let res: Response;
+  for (let attempt = 1; ; attempt++) {
+    res = await fetch(
+      "https://api.github.com/repos/deckmasterbeam/SniffiesProjects/releases?per_page=30",
     );
+    if (res.ok) break;
+    if (attempt === 4) {
+      throw new Error(
+        `getLatestSniffiesRelease: failed to fetch releases (${res.status})`,
+      );
+    }
+    await new Promise((r) => setTimeout(r, attempt * 2000));
   }
   const releases: { tag_name: string }[] = await res.json();
 
@@ -48,9 +53,19 @@ async function fetchLatest(): Promise<SniffiesRelease> {
     );
   }
 
+  return releaseFor(version);
+}
+
+function releaseFor(version: string): SniffiesRelease {
   return {
     version,
     userscriptHref: `https://raw.githubusercontent.com/deckmasterbeam/SniffiesProjects/userscript-${version}/dist/sniffies-tools.user.js`,
     chromeHref: `https://github.com/deckmasterbeam/SniffiesProjects/releases/download/chrome-${version}/sniffies-chrome.zip`,
   };
+}
+
+export function getSniffiesRelease(version?: string): Promise<SniffiesRelease> {
+  return version
+    ? Promise.resolve(releaseFor(version))
+    : getLatestSniffiesRelease();
 }

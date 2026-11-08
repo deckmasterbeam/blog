@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import ChromeDesktop from "../../chrome-desktop.astro";
+import TampermonkeyDesktop from "../../tampermonkey-desktop.astro";
+import TampermonkeyAndroid from "../../tampermonkey-android.astro";
+import UserscriptIos from "../../userscript-ios.astro";
+
+const pages = {
+  "chrome-desktop": ChromeDesktop,
+  "tampermonkey-desktop": TampermonkeyDesktop,
+  "tampermonkey-android": TampermonkeyAndroid,
+  "userscript-ios": UserscriptIos,
+};
+
+// One set of install pages per release post that sets `version`.
+export async function getStaticPaths() {
+  const releases = await getCollection(
+    "releases",
+    ({ data }) => !data.draft && !data.private && data.version,
+  );
+  return releases.flatMap(({ data }) =>
+    [
+      "chrome-desktop",
+      "tampermonkey-desktop",
+      "tampermonkey-android",
+      "userscript-ios",
+    ].map((platform) => ({
+      params: { version: data.version, platform },
+    })),
+  );
+}
+
+const { version, platform } = Astro.params;
+const Page = pages[platform as keyof typeof pages];
+---
+
+<Page version={version} />

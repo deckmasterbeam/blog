@@ -1,0 +1,42 @@
+---
+import Base from "../layouts/Base.astro";
+const videos = ["4gnntMvMgx4", "b53QJYP-lqY", "Yvl4QSAyWR4", "LyQJtQ0krFA"];
+---
+
+<Base title="Not found">
+  <section>
+    <h1>404</h1>
+    <p>That page doesn't exist. Here's something to listen to instead.</p>
+    <iframe
+      id="player"
+      title="YouTube video player"
+      allow="encrypted-media; picture-in-picture"
+      allowfullscreen></iframe>
+    <a href="/">Back home</a>
+  </section>
+</Base>
+
+<script is:inline define:vars={{ videos }}>
+  // Picked in the browser so each visit differs (the page is built statically).
+  const id = videos[Math.floor(Math.random() * videos.length)];
+  document.getElementById("player").src =
+    "https://www.youtube-nocookie.com/embed/" + id;
+</script>
+
+<style>
+  section {
+    padding-top: 2rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    margin: 1rem 0;
+  }
+</style>

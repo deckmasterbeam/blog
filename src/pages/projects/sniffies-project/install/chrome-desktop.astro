@@ -2,9 +2,9 @@
 import InstallPage from "../../../../layouts/InstallPage.astro";
 import InstallTrouble from "../../../../components/ui/InstallTrouble.astro";
 import LinkButton from "../../../../components/ui/LinkButton.astro";
-import { getLatestSniffiesRelease } from "../../../../lib/sniffiesReleases";
+import { getSniffiesRelease } from "../../../../lib/sniffiesReleases";
 
-const { version, chromeHref } = await getLatestSniffiesRelease();
+const { version, chromeHref } = await getSniffiesRelease(Astro.props.version);
 ---
 
 <InstallPage

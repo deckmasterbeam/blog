@@ -9,6 +9,17 @@ contentWarning: sniffies
 ---
 
 import LinkButton from "../../components/ui/LinkButton.astro";
+import Carousel from "../../components/ui/Carousel.astro";
+import locationSpoof1 from "../media/sniffies-project-v04-location-spoof-1.png";
+import locationSpoof2 from "../media/sniffies-project-v04-location-spoof-2.png";
+import genderFilter from "../media/sniffies-project-v04-gender-filter.png";
+import heightFilter from "../media/sniffies-project-v04-height-filter.png";
+import weightFilter from "../media/sniffies-project-v04-weight-filter.png";
+import sexualityFilter from "../media/sniffies-project-v04-sexuality-filter.png";
+import bodyFilter from "../media/sniffies-project-v04-body-filter.png";
+import positionFilter from "../media/sniffies-project-v04-position-filter.png";
+import report1 from "../media/sniffies-project-v04-report-1.png";
+import report2 from "../media/sniffies-project-v04-report-2.png";
 
 The "Sniffies Project" is a set of tools that recreate and expand functionality for [sniffies.com](https://sniffies.com). It builds as a Chrome extension, an iOS/desktop/Android userscript, and a bookmarklet.
 
@@ -20,8 +31,6 @@ The "Sniffies Project" is a set of tools that recreate and expand functionality 
 
 Sniffies puts some features behind a paid subscription. "Premium Features" is a group of features that unlock/recreate some of these paid subscription features. If you already have a Sniffies paid subscription, you don't really need me to recreate that paid functionality for you. The panel will detect a paid subscription and tell you that you can turn this set of features off.
 
-{/* TODO GIF: Premium Features section. Record: open the panel, flip the master toggle, then flip each sub-feature switch. Could double as the opener for the three sub-feature GIFs below. */}
-
 **How to use it:** open the "Premium Features" section, turn on the toggle, then turn on whichever sub-features you want.
 
 #### Location spoofing
@@ -30,7 +39,12 @@ Override the GPS coordinates Sniffies sees so that you can browse the map from a
 
 **Supported on:** Chrome Extension, Userscript (iOS Safari, Tampermonkey on desktop or Android). **Not supported on the bookmarklet.**
 
-{/* TODO GIF: Location spoofing. Record: open the panel, enable location spoofing, enter coordinates, save, and show the Sniffies map jump to the new place. ~12s. */}
+<Carousel
+  images={[
+    { src: locationSpoof1, alt: "Location spoofing start" },
+    { src: locationSpoof2, alt: "Location spoofing after search" },
+  ]}
+/>
 
 **How to use it:** switch on "Location spoofing", then click "Travel Mode" on the map. Search for a location and press enter. After the search completes (don't manually move the map), click Sniffies' "Travel Here" button. On reload, the map will be centered on the searched location.
 
@@ -40,8 +54,6 @@ Click on, view, and chat with profiles outside the free geofence.
 
 **Supported on:** Chrome Extension, Userscript, Bookmarklet.
 
-{/* TODO GIF: Profiles outside the radius. Record: pan the map beyond the free radius, click a profile that would normally hit the paywall, and show it open. ~8s. */}
-
 **How to use it:** switch on "Open profiles outside boundary", then click any profile on the map.
 
 #### Hiding sent photos
@@ -49,8 +61,6 @@ Click on, view, and chat with profiles outside the free geofence.
 Hide or unhide photos you've sent. Press on a sent photo until it reveals the options to "Hide Photo" or "Unhide Photo". Or, in the profile menu, click "Hide all Photos" or "Unhide all Photos".
 
 **Supported on:** Chrome Extension, Userscript, Bookmarklet.
-
-{/* TODO GIF: Hiding sent photos. Record: tap "Hide Photo" on a sent photo, show no paywall and the page reloading with the photo hidden. ~8s. */}
 
 **How to use it:** switch on "Hide sent photos", then use the buttons as usual. The page reloads afterward so the photo shows as hidden.
 
@@ -60,7 +70,12 @@ Report suspected bot accounts (malware-link spammers, fake "OnlyFans" profiles) 
 
 **Supported on:** Chrome Extension, Userscript (iOS Safari, Tampermonkey on desktop or Android).
 
-{/* TODO GIF: Bot reporting. Record: open a bot profile, tap the report button, type a reason, submit; then show the popup counter of blocked bots. ~15s. */}
+<Carousel
+  images={[
+    { src: report1, alt: "Bot reporting in the profile" },
+    { src: report2, alt: "Bot reporting popup" },
+  ]}
+/>
 
 **How to use it:** open the panel and turn on "Block Bot Accounts". The blocked-account list updates automatically and will filter out any reported bots. If you come across a bot, tap the report button on its profile and submit a report; validated reports get filtered out for everyone with blocking enabled.
 
@@ -70,7 +85,16 @@ Adds extra filters to Sniffies' filter menu: Gender, Height, Weight and Online A
 
 **Supported on:** Chrome Extension and Userscript for everything; Bookmarklet for the raised selection caps only.
 
-{/* TODO GIF: Profile filters (best candidate for a hero GIF at the top of the page). Record: enable Profile Filters, open Map Layers > Cruisers, set Gender, Height and Online After, tap "Reload to apply", and show the map thinning out. ~20s. */}
+<Carousel
+  images={[
+    { src: genderFilter, alt: "Gender filter in the profile" },
+    { src: heightFilter, alt: "Height filter in the profile" },
+    { src: weightFilter, alt: "Weight filter in the profile" },
+    { src: sexualityFilter, alt: "Sexuality filter in the profile" },
+    { src: bodyFilter, alt: "Body type filter in the profile" },
+    { src: positionFilter, alt: "Position filter in the profile" },
+  ]}
+/>
 
 **How to use it:** open the panel, turn on "Profile Filters", then open the filter menu. Gender, Height, Weight and Online After will appear in the menu. Changes to these filters require a page reload to take effect. Click the "Reload to apply" button to reload quickly.
 
