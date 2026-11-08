@@ -48,9 +48,19 @@ async function fetchLatest(): Promise<SniffiesRelease> {
     );
   }
 
+  return releaseFor(version);
+}
+
+function releaseFor(version: string): SniffiesRelease {
   return {
     version,
     userscriptHref: `https://raw.githubusercontent.com/deckmasterbeam/SniffiesProjects/userscript-${version}/dist/sniffies-tools.user.js`,
     chromeHref: `https://github.com/deckmasterbeam/SniffiesProjects/releases/download/chrome-${version}/sniffies-chrome.zip`,
   };
+}
+
+export function getSniffiesRelease(version?: string): Promise<SniffiesRelease> {
+  return version
+    ? Promise.resolve(releaseFor(version))
+    : getLatestSniffiesRelease();
 }

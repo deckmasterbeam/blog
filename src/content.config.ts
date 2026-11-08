@@ -45,6 +45,7 @@ const releases = defineCollection({
     description: z.string(),
     draft: z.boolean().default(false),
     private: z.boolean().default(false), // pulled from the public site after being published
+    version: z.string().optional(),
     repo: z.string().url().optional(),
     projectTag: z.string(),
     contentWarning: z.enum(contentWarningKeys).optional(), // key into contentWarnings.ts

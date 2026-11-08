@@ -1,8 +1,9 @@
 ---
-title: "Sniffies Project v0.4.1: Profile Filters"
+title: "Sniffies Project v0.4.2: Profile Filters"
 date: 2026-10-10
 description: "New filters in Sniffies' filter menu and changes to existing Sniffies filters. UX improvement on evading the free radius"
 draft: false
+version: "0.4.2"
 projectTag: SniffiesProject
 contentWarning: sniffies
 ---
@@ -17,6 +18,8 @@ import genderFilter from "../media/sniffies-project-v04-gender-filter.png";
 import bodyFilter from "../media/sniffies-project-v04-body-filter.png";
 import sexualityFilter from "../media/sniffies-project-v04-sexuality-filter.png";
 import positionFilter from "../media/sniffies-project-v04-position-filter.png";
+import locationSpoof1 from "../media/sniffies-project-v04-location-spoof-1.png";
+import locationSpoof2 from "../media/sniffies-project-v04-location-spoof-2.png";
 
 ## What's new?
 
@@ -56,17 +59,24 @@ Filters apply to the map only, just like Sniffies filters do. Your chats are nev
 ### Premium Features
 
 Location spoofing, opening profiles outside the free radius, and hiding sent photos used to be three separate sections. They now live in one Premium Features section with a master toggle and a switch per sub-feature. The extension also detects paid Sniffies Plus accounts, and if you have one, it tells you that you don't need these.
-{/* TODO GIF 4: Premium Features section. Record: open the popup, flip the master toggle, flip each sub-feature switch, ending on the Plus notice if you can capture it (a Plus account, or mock the flag). */}
 
 - **Location spoofing:** override the GPS coordinates Sniffies sees, so you can browse the map from anywhere.
+
+<Carousel
+  images={[
+    { src: locationSpoof1, alt: "Location spoofing start" },
+    { src: locationSpoof2, alt: "Location spoofing after search" },
+  ]}
+/>
+
 - **Profiles outside your free radius:** click profiles beyond the free geofence to view them without hitting the paywall.
-- **Hide sent photos without the paywall:** clicking "Hide Photo" or "Unhide Photo" on a photo you sent now does it instead of showing the paywall, and the page reloads so the photo shows as hidden. "Hide all Photos" and "Unhide all photos" in the profile menu work the same way. This works in all three install options.
-  {/* TODO GIF 5: Hiding photos. Record: open a chat where you sent a photo, tap "Hide Photo" (no paywall appears), let the page reload, and show the photo hidden. Then quickly repeat with "Hide all Photos" in the profile menu. */}
+- **Hide sent photos:** clicking "Hide Photo" or "Unhide Photo" would normally hit a paywall, now it just preforms the action and reloads the page. "Hide all Photos" and "Unhide all photos" in the profile menu work the same way. This works in all three install options.
 
 ### Update notice
 
 The Chrome extension popup and userscript panel now check GitHub for a newer release and show a banner linking to the [install page](/projects/sniffies-project/install/) when yours is out of date. The bookmarklet always loads the latest version, so it doesn't need one.
-{/* TODO GIF 6 (optional, a screenshot is fine): Update banner. Record: with an older build installed, open the popup, show the banner, and click through to the install page. */}
+
+![Update banner](../media/sniffies-project-v04-update.png)
 
 ## How do I use these features?
 
@@ -97,7 +107,7 @@ A bookmarklet only runs after the page has loaded, so it is too late to filter t
 
 <hr />
 
-<SniffiesInstallPicker />
+<SniffiesInstallPicker version={frontmatter.version} />
 
 <hr />
 
