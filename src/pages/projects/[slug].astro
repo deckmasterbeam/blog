@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 
   return projectPosts.map((post) => {
     const releases = allReleases
-      .filter((r) => r.data.projectTag === post.data.projectTag)
+      .filter((r) => r.data.project === post.data.project)
       .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
     return {

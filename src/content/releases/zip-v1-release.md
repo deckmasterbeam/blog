@@ -4,7 +4,7 @@ date: 2026-04-10
 description: "Basic recreation of LinkedIn Zip"
 draft: false
 repo: https://github.com/deckmasterbeam/zip-clone
-projectTag: zipClone
+project: zipClone
 ---
 
 I like some of the LinkedIn daily games, especially Zip. But some days, despite LinkedIn's best efforts to remind me to play my daily's, I forget.

@@ -1,0 +1,76 @@
+---
+export type Pages =
+  | "chrome-desktop"
+  | "tampermonkey-desktop"
+  | "tampermonkey-android"
+  | "bookmarklet-android"
+  | "bookmarklet-ios"
+  | "userscript-ios";
+
+interface Faq {
+  question: string;
+  answer: string;
+  relevantInstallPages: Pages[];
+}
+
+const ALL_PAGES: Pages[] = [
+  "chrome-desktop",
+  "tampermonkey-desktop",
+  "tampermonkey-android",
+  "bookmarklet-android",
+  "bookmarklet-ios",
+  "userscript-ios",
+];
+
+const faqs: Faq[] = [
+  // Generic (all pages)
+  {
+    question: "Do you support the Sniffies iOS app?",
+    answer:
+      "No. The way the Sniffies iOS app works, it is not possible to modify its behavior in a way that is easily available to a non technical end user.",
+    relevantInstallPages: ALL_PAGES,
+  },
+  {
+    question: "Does this work with the Sniffies web app (home screen / PWA)?",
+    answer:
+      "No. The installed Sniffies web app (the one added to your home screen, or installed as an app from the browser) is not supported. It runs in its own container where extensions, userscripts and bookmarklets don't load. Open Sniffies in a normal browser tab instead.",
+    relevantInstallPages: ALL_PAGES,
+  },
+  // Page-specific examples can be added here, e.g.:
+  // { question: "...", answer: "...", relevantInstallPages: ["chrome-desktop"] },
+];
+
+interface Props {
+  page: Pages;
+}
+
+const { page } = Astro.props;
+const items = faqs.filter((f) => f.relevantInstallPages.includes(page));
+---
+
+{
+  items.length > 0 && (
+    <section class="faq">
+      <h2>FAQ</h2>
+      {items.map((f) => (
+        <details>
+          <summary>{f.question}</summary>
+          <p>{f.answer}</p>
+        </details>
+      ))}
+    </section>
+  )
+}
+
+<style>
+  details {
+    margin-bottom: 0.75rem;
+  }
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+  }
+  details p {
+    margin: 0.5rem 0 0;
+  }
+</style>

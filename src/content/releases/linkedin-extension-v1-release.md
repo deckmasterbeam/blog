@@ -4,7 +4,7 @@ date: 2026-04-22
 description: "A browser extension that restores LinkedIn profile hover cards."
 draft: false
 repo: https://github.com/deckmasterbeam/linkedInExtension
-projectTag: linkedInExtension
+project: linkedInExtension
 ---
 
 ![Example of LinkedIn extension pop-up](../media/linkedin-extension-v1-release-pic.png)

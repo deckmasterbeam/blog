@@ -3,6 +3,22 @@ import { getCollection, render } from "astro:content";
 import BlogPost from "../../layouts/BlogPost.astro";
 
 export async function getStaticPaths() {
+  // Fail the build if a release points at a project that doesn't exist
+  // (a typo would otherwise silently drop it from its project page).
+  const knownProjects = new Set(
+    (await getCollection("projects")).map((p) => p.data.project),
+  );
+  const orphans = (await getCollection("releases")).filter(
+    (r) => !knownProjects.has(r.data.project),
+  );
+  if (orphans.length > 0) {
+    throw new Error(
+      `Releases reference an unknown \`project\`: ${orphans
+        .map((r) => `${r.id} (project: "${r.data.project}")`)
+        .join(", ")}. Known projects: ${[...knownProjects].join(", ")}`,
+    );
+  }
+
   const releases = await getCollection(
     "releases",
     ({ data }) => !data.draft && !data.private,
@@ -21,7 +37,7 @@ const { Content } = await render(post);
   title={post.data.title}
   date={post.data.date}
   description={post.data.description}
-  tags={[post.data.projectTag]}
+  tags={[post.data.project]}
   contentWarning={post.data.contentWarning}
 >
   <Content />

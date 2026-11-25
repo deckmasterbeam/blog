@@ -1,6 +1,7 @@
 ---
 import InstallPage from "../../../../layouts/InstallPage.astro";
 import InstallTrouble from "../../../../components/ui/InstallTrouble.astro";
+import InstallFaq from "../../../../components/ui/InstallFaq.astro";
 import SniffiesBookmarkletCode from "../../../../components/ui/SniffiesBookmarkletCode.astro";
 ---
 
@@ -115,5 +116,7 @@ import SniffiesBookmarkletCode from "../../../../components/ui/SniffiesBookmarkl
     If your browser doesn't let you edit a bookmark's URL, or the bookmarklet
     doesn't run, let me know which browser below and I'll add specific steps.
   </p>
+  <InstallFaq page="bookmarklet-android" />
+
   <InstallTrouble />
 </InstallPage>
