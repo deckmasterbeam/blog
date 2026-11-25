@@ -12,12 +12,13 @@ import LinkButton from "../../components/ui/LinkButton.astro";
 import Carousel from "../../components/ui/Carousel.astro";
 import locationSpoof1 from "../media/sniffies-project-v04-location-spoof-1.png";
 import locationSpoof2 from "../media/sniffies-project-v04-location-spoof-2.png";
-import genderFilter from "../media/sniffies-project-v04-gender-filter.png";
-import heightFilter from "../media/sniffies-project-v04-height-filter.png";
-import weightFilter from "../media/sniffies-project-v04-weight-filter.png";
-import sexualityFilter from "../media/sniffies-project-v04-sexuality-filter.png";
-import bodyFilter from "../media/sniffies-project-v04-body-filter.png";
-import positionFilter from "../media/sniffies-project-v04-position-filter.png";
+import genderFilter from "../media/sniffies-project-v05-gender-filter.png";
+import heightFilter from "../media/sniffies-project-v05-height-filter.png";
+import weightFilter from "../media/sniffies-project-v05-weight-filter.png";
+import sexualityFilter from "../media/sniffies-project-v05-sexuality-filter.png";
+import bodyFilter from "../media/sniffies-project-v05-body-filter.png";
+import positionFilter from "../media/sniffies-project-v05-position-filter.png";
+import ageFilter from "../media/sniffies-project-v05-age-filter.png"
 import report1 from "../media/sniffies-project-v04-report-1.png";
 import report2 from "../media/sniffies-project-v04-report-2.png";
 
@@ -66,12 +67,11 @@ Hide or unhide photos you've sent. Press on a sent photo until it reveals the op
 
 #### Read receipts
 
-Shows a "Seen" marker under the last message you sent that the other person has read, like the one Sniffies shows paid accounts. If you have Sniffies Plus, Sniffies' own marker is left alone.
+Shows a "Seen" marker under the last message you sent that the other person has read, like the one Sniffies shows paid accounts. If you have Sniffies Plus, the marker Sniffies adds is left alone.
 
 **Supported on:** Chrome Extension, Userscript, Bookmarklet.
 
-{/* TODO image: chat showing the "Seen" marker under a sent message (sniffies-project-v05-read-receipt.png) */}
-{/* TODO image: Premium Features panel with the Read Receipts switch on (sniffies-project-v05-read-receipt-panel.png) */}
+![Messages sent by a free account can see the read receipt of other accounts after chat initialization](../media/sniffies-project-v05-read-receipt.jpg)
 
 **How to use it:** switch on "Read Receipts". The marker updates when you open or reload a chat, not live while the chat is open, so reload to check for a new "Seen".
 
@@ -92,22 +92,30 @@ Report suspected bot accounts (malware-link spammers, fake "OnlyFans" profiles) 
 
 ### Profile filters
 
-Adds extra filters to Sniffies' filter menu: Gender, Height, Weight and Online After. It also lifts the "Choose up to 3" cap on Sniffies' own Sexuality, Body Type and Position filters (raising it to an arbitrarily high "Choose up to 99").
+Adds new filters to Sniffies filter menu: 
+- Gender: filter to include/exclude any combination of: men, women, non-binary, undefined.
+- Height and Weight
+- Online After: Similar to online now, but it filters down profiles to only the users who have been online within N minutes (rolling or static length of time)
+
+Modifies existing filters in the Sniffies filter menu:
+- Lifts the "Choose up to 3" cap on Sniffies Sexuality, Body Type and Position filters (raising it to an arbitrarily high "Choose up to 99").
+- Every filter now includes an "include profiles with none listed" option.  With an age filter on, for example, you can still see profiles that have no age listed. Without it, those profiles are hidden.
 
 **Supported on:** Chrome Extension and Userscript for everything; Bookmarklet for the raised selection caps only.
 
 <Carousel
   images={[
-    { src: genderFilter, alt: "Gender filter in the profile" },
-    { src: heightFilter, alt: "Height filter in the profile" },
-    { src: weightFilter, alt: "Weight filter in the profile" },
-    { src: sexualityFilter, alt: "Sexuality filter in the profile" },
-    { src: bodyFilter, alt: "Body type filter in the profile" },
-    { src: positionFilter, alt: "Position filter in the profile" },
+    { src: genderFilter, alt: "Gender filter in the filter menu" },
+    { src: heightFilter, alt: "Height filter in the filter menu" },
+    { src: weightFilter, alt: "Weight filter in the filter menu" },
+    { src: ageFilter, alt: "Age filter in the filter menu" },
+    { src: sexualityFilter, alt: "Sexuality filter in the filter menu" },
+    { src: bodyFilter, alt: "Body type filter in the filter menu" },
+    { src: positionFilter, alt: "Position filter in the filter menu" },
   ]}
 />
 
-**How to use it:** open the panel, turn on "Profile Filters", then open the filter menu. Gender, Height, Weight and Online After will appear in the menu. Changes to these filters require a page reload to take effect. Click the "Reload to apply" button to reload quickly.
+**How to use it:** open the extension panel, turn on "Expanded Filters", then open the filter menu. Gender, Height, Weight and Online After will appear in the menu. Changes to these filters require a page reload to take effect. Click the "Reload to apply" button to reload quickly.
 
 <LinkButton
   href="/projects/sniffies-project/install/"

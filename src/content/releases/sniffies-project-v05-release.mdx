@@ -1,7 +1,7 @@
 ---
-title: "Sniffies Project v0.5.0: Read Receipts"
+title: "Sniffies Project v0.5.0: Read Receipts and Better Filters"
 date: 2026-11-18
-description: "Add read receipts, TODO"
+description: "Read receipts, filters that can include profiles where filter prop = undefined, bug fixes"
 draft: false
 version: "0.5.0"
 project: SniffiesProject
@@ -19,7 +19,7 @@ import SniffiesPrivacyPolicy from "../../components/ui/SniffiesPrivacyPolicy.ast
 
 ## What's new?
 
-Read receipts are another feature Sniffies keeps behind Sniffies Plus, so they are the fourth Premium Feature. The 0.4 "What's next" list (dismiss from map, fake profile detection, auto chat, pinning) is still ahead of me; this release is smaller on purpose.
+Two things this release: Read Receipts, the fourth Premium Feature, and a round of fixes and improvements to Profile Filters.
 
 ### Read Receipts
 
@@ -27,21 +27,24 @@ With Read Receipts on, a "Seen" marker appears under the last message you sent t
 
 The marker updates when you open or reload a chat. It does not update live while the chat is open: Sniffies tells the page about new read state over a websocket, and the project only reads the message history loaded with the chat. If you're waiting on a "Seen" to show up, reload.
 
-{/* TODO image: chat with the "Seen" marker under the last read message (sniffies-project-v05-read-receipt.png) */}
-{/* TODO image: Premium Features panel with the Read Receipts switch on (sniffies-project-v05-read-receipt-panel.png) */}
-{/* TODO image (optional): same chat before reloading vs. after, showing the marker appearing on reload */}
+![Messages sent by a free account can see the read receipt of other accounts after chat initialization](../media/sniffies-project-v05-read-receipt.jpg)
 
-{/* ### Bookmarklet install tracking
+### Better Profile Filters
 
-TODO: Very briefly mention this, if at all
+Profile Filters got the biggest rework since 0.4.
 
-This is behind-the-scenes, but worth explaining. The bookmarklet is the one install option that runs _after_ Sniffies has loaded, so it missed the startup traffic the other installs use to learn your Sniffies user id. The old approach waited for a short list of network requests that happened to include it, and often never saw one.
+- **Include profiles with none listed:** every filter now has an "include profiles with none listed" option. Say you filter by age but a profile has no age on it. Before, that profile was always hidden. Now you choose whether it stays visible.
+- **Filter replacement fixes:** several bugs in how my filters replace Sniffiess filters are fixed.
+- **Metric and imperial:** height and weight filters now read the unit setting from your Sniffies settings properly.
+- **Online after vs. cruising now:** turning on "Online after" now turns off "Cruising now", since the two contradict each other.
 
-The bookmarklet now looks for your user id in the page itself. Most people have their own profile somewhere in their current map view, so it is found much more reliably. This only affects how I count installs; nothing about what the bookmarklet does for you changes. See the privacy policy below for what the usage ping contains. */}
+As before, filters apply to the map only. Your chats are never hidden.
+
+![Age filter shows "include profiles with none listed" option](../media/sniffies-project-v05-age-filter.png)
 
 ## How do I use these features?
 
-{/* TODO image: popup/panel Premium Features section with Read Receipts expanded, showing the hint text (sniffies-project-v05-read-receipt-hint.png) */}
+**Profile Filters:** nothing to change. Open the "Profile Filters" section as before; the "include profiles with none listed" option appears on each filter row.
 
 **Read Receipts:** open the "Premium Features" section of the popup (Chrome extension) or panel (userscript, bookmarklet), turn on the master toggle, then switch on "Read Receipts". It is off by default.
 
@@ -53,10 +56,14 @@ The bookmarklet now looks for your user id in the page itself. Most people have 
 | &nbsp;&nbsp;↳ Hide / unhide sent photos                   | Yes              | Yes        | Yes         |
 | &nbsp;&nbsp;↳ Read Receipts                               | Yes              | Yes        | Yes         |
 
-{/* ## What's next?
+## What's next?
 
-TODO, include previous what's next?
-TODO, write? */}
+- Carry over the "what's next?" from 0.4:
+    - dismissing profiles from map
+    - fake profile detection
+    - auto chat options
+    - reverse engineer pinning
+- Talking with users, working around the block limit
 
 <hr />
 
