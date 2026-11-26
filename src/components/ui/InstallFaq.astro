@@ -1,4 +1,6 @@
 ---
+import { getCollection } from "astro:content";
+
 export type Pages =
   | "chrome-desktop"
   | "tampermonkey-desktop"
@@ -10,6 +12,7 @@ export type Pages =
 interface Faq {
   question: string;
   answer: string;
+  link?: { href: string; text: string };
   relevantInstallPages: Pages[];
 }
 
@@ -22,18 +25,36 @@ const ALL_PAGES: Pages[] = [
   "userscript-ios",
 ];
 
+// The privacy policy is rendered at the bottom of each release post, so link to
+// the newest published one.
+const [latestRelease] = (
+  await getCollection(
+    "releases",
+    ({ data }) =>
+      data.project === "SniffiesProject" && !data.draft && !data.private,
+  )
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const privacyPolicyHref = `/releases/${latestRelease.id.replace(/\.(md|mdx)$/, "")}#privacy-policy`;
+
 const faqs: Faq[] = [
   // Generic (all pages)
   {
     question: "Do you support the Sniffies iOS app?",
     answer:
       "No. The way the Sniffies iOS app works, it is not possible to modify its behavior in a way that is easily available to a non technical end user.",
-    relevantInstallPages: ALL_PAGES,
+    relevantInstallPages: ["bookmarklet-ios", "userscript-ios"],
   },
   {
     question: "Does this work with the Sniffies web app (home screen / PWA)?",
     answer:
       "No. The installed Sniffies web app (the one added to your home screen, or installed as an app from the browser) is not supported. It runs in its own container where extensions, userscripts and bookmarklets don't load. Open Sniffies in a normal browser tab instead.",
+    relevantInstallPages: ["bookmarklet-ios", "userscript-ios"],
+  },
+  {
+    question: "What data do you collect on me?",
+    answer:
+      "Your Sniffies user GUID and the version of the client you're running. If future versions collect more, it will only be data you explicitly choose to submit, like reports or feedback. It's only used to operate and improve the tool, and is not sold or shared with third parties.",
+    link: { href: privacyPolicyHref, text: "Read the privacy policy" },
     relevantInstallPages: ALL_PAGES,
   },
   // Page-specific examples can be added here, e.g.:
@@ -55,7 +76,15 @@ const items = faqs.filter((f) => f.relevantInstallPages.includes(page));
       {items.map((f) => (
         <details>
           <summary>{f.question}</summary>
-          <p>{f.answer}</p>
+          <p>
+            {f.answer}
+            {f.link && (
+              <>
+                {" "}
+                <a href={f.link.href}>{f.link.text}</a>.
+              </>
+            )}
+          </p>
         </details>
       ))}
     </section>
