@@ -11,12 +11,6 @@ contentWarning: sniffies
 import SniffiesInstallPicker from "../../components/ui/SniffiesInstallPicker.astro";
 import SniffiesPrivacyPolicy from "../../components/ui/SniffiesPrivacyPolicy.astro";
 
-{/* ## Previous whats next:
-
-- **Dismiss from map:** hide a profile from the map for 24 hours without blocking them.
-- **Auto chat:** Grindr-style saved chat messages
-- **Pinnging profiles:** Another premium feature I think I can make work through the project. */}
-
 ## What's new?
 
 Two things this release: Read Receipts, the fourth Premium Feature, and a round of fixes and improvements to Profile Filters.
@@ -34,7 +28,7 @@ The marker updates when you open or reload a chat. It does not update live while
 Profile Filters got the biggest rework since 0.4.
 
 - **Include profiles with none listed:** every filter now has an "include profiles with none listed" option. Say you filter by age but a profile has no age on it. Before, that profile was always hidden. Now you choose whether it stays visible.
-- **Filter replacement fixes:** several bugs in how my filters replace Sniffiess filters are fixed.
+- **Filter replacement fixes:** several bugs in how my filters replace Sniffies' filters are fixed.
 - **Metric and imperial:** height and weight filters now read the unit setting from your Sniffies settings properly.
 - **Online after vs. cruising now:** turning on "Online after" now turns off "Cruising now", since the two contradict each other.
 
@@ -62,8 +56,9 @@ As before, filters apply to the map only. Your chats are never hidden.
     - dismissing profiles from map
     - fake profile detection
     - auto chat options
-    - reverse engineer pinning
 - Talking with users, working around the block limit
+
+- Pinning profiles: this proves technically infeasible
 
 <hr />
 

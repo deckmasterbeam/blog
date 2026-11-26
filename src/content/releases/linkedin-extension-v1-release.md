@@ -15,7 +15,7 @@ I ask myself, why doesn't LinkedIn show some kind of expanded info on a person w
 
 https://www.linkedin.com/blog/member/product/tuesday-tip-hover-over-people-and-companies-in-your-feed
 
-But, evidently, they've cut this feature today. So, I build a browser extension to do just that:
+But, evidently, they've cut this feature today. So, I built a browser extension to do just that:
 
 https://github.com/deckmasterbeam/linkedInExtension
 
@@ -27,4 +27,4 @@ First, a lot of my ideas I have for projects are just fixes for websites that I 
 
 Second, I think engineers don't try to optimize their network requests for near-static data enough. Network bandwidth is taken for granted. Your name, profile pic, title, pronouns, and whether you're connected to someone are near static values. Because of that, I decided to just cache these values. With this extension, if you hover over someone, that data will sit in a browser cache for 7 days or until you manually clear it.
 
-Right now, this extension only works on user profiles. If people are interested, I plan to add support for companies too
+Right now, this extension only works on user profiles. If people are interested, I plan to add support for companies too.
