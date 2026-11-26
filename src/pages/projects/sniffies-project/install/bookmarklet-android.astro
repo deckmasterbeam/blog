@@ -1,6 +1,7 @@
 ---
 import InstallPage from "../../../../layouts/InstallPage.astro";
 import InstallTrouble from "../../../../components/ui/InstallTrouble.astro";
+import InstallFaq from "../../../../components/ui/InstallFaq.astro";
 import SniffiesBookmarkletCode from "../../../../components/ui/SniffiesBookmarkletCode.astro";
 ---
 
@@ -33,7 +34,7 @@ import SniffiesBookmarkletCode from "../../../../components/ui/SniffiesBookmarkl
     <strong>Heads up:</strong> the bookmarklet supports opening profiles outside
     your free radius and raising the selection caps on Sniffies' Sexuality, Body Type
     and Position filters. It can't spoof your location, block bots, or add the Gender,
-    Height, Weight and Last Online filters, because a bookmarklet only runs after
+    Height, Weight and Online After filters, because a bookmarklet only runs after
     the page has already loaded. For those, use Firefox and the{
       " "
     }
@@ -115,5 +116,7 @@ import SniffiesBookmarkletCode from "../../../../components/ui/SniffiesBookmarkl
     If your browser doesn't let you edit a bookmark's URL, or the bookmarklet
     doesn't run, let me know which browser below and I'll add specific steps.
   </p>
+  <InstallFaq page="bookmarklet-android" />
+
   <InstallTrouble />
 </InstallPage>

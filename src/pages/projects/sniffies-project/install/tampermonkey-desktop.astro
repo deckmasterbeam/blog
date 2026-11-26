@@ -1,6 +1,7 @@
 ---
 import InstallPage from "../../../../layouts/InstallPage.astro";
 import InstallTrouble from "../../../../components/ui/InstallTrouble.astro";
+import InstallFaq from "../../../../components/ui/InstallFaq.astro";
 import LinkButton from "../../../../components/ui/LinkButton.astro";
 import { getSniffiesRelease } from "../../../../lib/sniffiesReleases";
 
@@ -53,6 +54,8 @@ const { version, userscriptHref } = await getSniffiesRelease(Astro.props.version
     version is released — Tampermonkey will show
     <strong>Update</strong> instead of <strong>Install</strong>.
   </p>
+
+  <InstallFaq page="tampermonkey-desktop" />
 
   <InstallTrouble />
 </InstallPage>

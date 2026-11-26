@@ -32,7 +32,7 @@ const projects = defineCollection({
     draft: z.boolean().default(false),
     repo: z.string().url().optional(),
     site: z.string().url().optional(),
-    projectTag: z.string(), // matches the tag on related release posts
+    project: z.string(), // matches `project` on related release posts
     contentWarning: z.enum(contentWarningKeys).optional(), // key into contentWarnings.ts
   }),
 });
@@ -47,7 +47,7 @@ const releases = defineCollection({
     private: z.boolean().default(false), // pulled from the public site after being published
     version: z.string().optional(),
     repo: z.string().url().optional(),
-    projectTag: z.string(),
+    project: z.string(), // matches `project` on the project landing page
     contentWarning: z.enum(contentWarningKeys).optional(), // key into contentWarnings.ts
   }),
 });

@@ -6,7 +6,7 @@ import PostCard from "../../components/PostCard.astro";
 const posts = (
   await getCollection(
     "blog",
-    ({ data }) => !data.draft && data.tags.includes("blog"),
+    ({ data }) => !data.draft,
   )
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---

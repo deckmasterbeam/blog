@@ -9,6 +9,7 @@ A personal site built with [Astro](https://astro.build) and deployed on [Vercel]
 - Publish long-form blog posts (e.g. the unemployment retrospective)
 - Host dedicated landing pages for projects (e.g. Sniffies)
 - Announce project releases and updates
+- Archive cool work features I worked on
 - Keep things fast, clean, and easy to maintain
 
 ---
@@ -34,39 +35,69 @@ blog/
 ├── src/
 │   ├── pages/
 │   │   ├── index.astro              # Homepage
+│   │   ├── 404.astro
 │   │   ├── blog/
-│   │   │   ├── index.astro          # Lists posts tagged "blog"
-│   │   │   └── [slug].astro         # Individual blog/release posts
+│   │   │   ├── index.astro          # Lists blog posts
+│   │   │   └── [slug].astro         # Individual blog post
 │   │   ├── projects/
-│   │   │   ├── index.astro          # Lists posts tagged "projectLanding"
-│   │   │   └── [slug].astro         # Project landing page + its releases
-│   │   └── releases/
-│   │       └── index.astro          # Lists all posts tagged "release"
+│   │   │   ├── index.astro          # Lists projects
+│   │   │   ├── [slug].astro         # Project landing page + its releases
+│   │   │   └── sniffies-project/
+│   │   │       └── install/         # Per-platform install guides (index, chrome-desktop,
+│   │   │                            #   tampermonkey-*, bookmarklet-*, userscript-ios, v/[version]/[platform])
+│   │   ├── releases/
+│   │   │   ├── index.astro          # Lists all releases
+│   │   │   └── [slug].astro         # Individual release post
+│   │   ├── career/
+│   │   │   ├── index.astro          # Lists career/work-feature entries
+│   │   │   └── [slug].astro         # Individual career entry
+│   │   ├── report/
+│   │   │   └── [type].astro         # Report form pages
+│   │   └── api/
+│   │       └── reports.ts           # Report submission endpoint
 │   │
+│   ├── content.config.ts            # Collection schemas (blog, projects, releases, career)
 │   ├── content/
-│   │   ├── blog/                    # All content as Markdown/MDX files
-│   │   │   ├── unemployment-retro.md
-│   │   │   ├── linkedin-extension-v1-release.md
-│   │   │   └── ...
-│   │   └── config.ts                # Content collection schema
+│   │   ├── blog/                    # Blog posts (Markdown/MDX)
+│   │   ├── projects/                # Project landing pages
+│   │   ├── releases/                # Release announcements
+│   │   ├── career/                  # Career / work-feature entries
+│   │   ├── media/                   # Images referenced from content
+│   │   ├── contentWarnings.ts       # Content warning definitions (keys used in frontmatter)
+│   │   └── reportTypes.ts
 │   │
 │   ├── components/
 │   │   ├── Nav.astro
 │   │   ├── Footer.astro
-│   │   └── PostCard.astro           # Card for blog, project, and release listings
+│   │   ├── PostCard.astro           # Card for blog, project, and release listings
+│   │   ├── ContentWarningGate.astro
+│   │   ├── Embed.astro
+│   │   ├── GithubSnippet.astro
+│   │   ├── ReportForm.astro
+│   │   ├── ThemeToggle.astro
+│   │   └── ui/                      # Smaller UI pieces: Carousel, LinkButton, BuyMeACoffee,
+│   │                                #   and the Sniffies install helpers (picker, FAQ, bookmarklet code, etc.)
 │   │
 │   ├── layouts/
 │   │   ├── Base.astro               # HTML shell: head, nav, footer
 │   │   ├── BlogPost.astro           # Wraps individual posts
-│   │   └── ProjectPage.astro        # Wraps project landing pages
+│   │   ├── ProjectPage.astro        # Wraps project landing pages
+│   │   ├── CareerPage.astro         # Wraps career entries
+│   │   └── InstallPage.astro        # Wraps Sniffies install guides
 │   │
+│   ├── lib/                         # Helpers: embeds, feature flags, Sniffies release/bookmarklet logic
+│   ├── scripts/                     # Client scripts: theme init/toggle, content warning ack check
 │   ├── styles/
-│   │   └── global.css
+│   │   ├── global.css
+│   │   └── install-button.css
 │   │
 │   └── types/
 │       └── post.ts                  # Discriminated union types for PostCard props
 │
-├── public/                          # Static assets: favicon, OG images
+├── db/
+│   └── schema.sql                   # Database schema (reports)
+├── public/                          # Static assets: favicon, install screenshots
+├── .env.example
 ├── astro.config.mjs
 ├── package.json
 └── tsconfig.json
@@ -76,72 +107,84 @@ blog/
 
 ## Key Concepts
 
-### Content Collections (`src/content/blog/`)
+### Content Collections (`src/content/`)
 
-All content lives in one collection as `.md` or `.mdx` files. The `tags` field determines where each post appears in the site. Schema is defined in `config.ts` so frontmatter is type-safe.
+Content lives in four collections, each a folder of `.md` / `.mdx` files. Schemas are defined in [`src/content.config.ts`](src/content.config.ts), so frontmatter is type-checked. The collection a file lives in decides where it appears:
 
-### Tag Taxonomy
+| Collection  | Folder                 | Listing     | Detail page          |
+| ----------- | ---------------------- | ----------- | -------------------- |
+| `blog`      | `src/content/blog/`     | `/blog`     | `/blog/[slug]`       |
+| `projects`  | `src/content/projects/` | `/projects` | `/projects/[slug]`   |
+| `releases`  | `src/content/releases/` | `/releases` | `/releases/[slug]`   |
+| `career`    | `src/content/career/`   | `/career`   | `/career/[slug]`     |
 
-Tags drive routing and listing. Every post should have at least one of the following primary tags:
+### `tags` vs `project`
 
-| Tag              | Where it appears                        | Route       |
-| ---------------- | --------------------------------------- | ----------- |
-| `blog`           | Blog listing                            | `/blog`     |
-| `projectLanding` | Projects listing                        | `/projects` |
-| `release`        | Releases listing + project landing page | `/releases` |
+- **`project`** (projects and releases): a required string that links a project to its releases. Use the same value on the project's landing page and on every one of its release posts. Existing values: `linkedInExtension`, `SniffiesProject`, `zipClone`. Match case exactly, since a typo silently drops the release from the project page.
+- **`tags`** (blog only): an optional array of labels shown on the post. It doesn't affect routing. The collection alone decides that a file is a blog post, so no `blog` tag is needed.
 
-Each project also gets its own **project tag** (e.g. `linkedinExtension`, `sniffies`). Apply it to both the project's landing page and all its release posts — this is how the project page knows which releases to list.
+### Frontmatter Reference
+
+Common to all collections: `title`, `date`, `description` (all required), `draft` (default `false`), and `contentWarning` (optional).
+
+| Field            | Collections           | Notes                                                                                          |
+| ---------------- | --------------------- | ---------------------------------------------------------------------------------------------- |
+| `tags`           | blog                  | Optional array of display labels. Doesn't affect routing.                                      |
+| `project`        | projects, releases    | Required. Links releases to their project.                                                     |
+| `repo`           | blog, projects, releases | Optional URL. PostCard renders a "View repo" link when present.                             |
+| `site`           | projects              | Optional URL.                                                                                  |
+| `version`        | releases              | Optional.                                                                                      |
+| `private`        | releases              | `true` pulls it from the public site: no page, and it's left out of the list and project page. |
+| `company`        | career                | Optional.                                                                                      |
+| `embedUrl`       | career                | Optional URL to embed (LinkedIn post, YouTube video, tweet).                                   |
+| `contentWarning` | all                   | Optional. Must be a key in `src/content/contentWarnings.ts` (currently `sniffies`).            |
 
 Example frontmatter for each type:
 
-**Blog post**
+**Blog post** (`src/content/blog/`)
 
 ```md
 ---
 title: "Nine Months: A Job Search Retrospective"
 date: 2026-06-17
-tags: [blog]
 description: "From layoff to Apple offer — what the gap year actually looked like."
 draft: false
 ---
 ```
 
-**Project landing page**
+**Project landing page** (`src/content/projects/`)
 
 ```md
 ---
 title: "LinkedIn Extension"
-date: 2026-06-01
-tags: [projectLanding, linkedinExtension]
+date: 2026-04-18
 description: "A browser extension that restores LinkedIn profile hover cards."
 draft: false
+repo: https://github.com/you/linkedin-extension
+project: linkedInExtension
 ---
 ```
 
-**Release post**
+**Release post** (`src/content/releases/`)
 
 ```md
 ---
 title: "LinkedIn Extension v1"
 date: 2026-06-24
-tags: [release, linkedinExtension]
 description: "What shipped in v1 and what's next."
 draft: false
 repo: https://github.com/you/linkedin-extension
+project: linkedInExtension
 ---
 ```
 
-The `repo` field is optional and only meaningful on release posts. When present, PostCard renders a "View repo" link.
-
-Set `private: true` on a release post to pull it from the public site (no page, and it's left out of the releases list and project pages).
-
 ### Project Landing Pages
 
-Project landing pages are Markdown posts tagged `projectLanding` (not static `.astro` files). They're served at `/projects/[slug]` and automatically list all release posts that share the project's tag. No manual wiring needed — just tag them consistently.
+Project landing pages are Markdown files in the `projects` collection (not static `.astro` files). They're served at `/projects/[slug]` and automatically list every release whose `project` matches. No manual wiring needed — just use the same `project` value consistently.
 
 ### Release Announcements
 
-Release posts are tagged `release` plus the project tag. They appear on `/releases` (all releases) and on the relevant project landing page.
+Release posts live in the `releases` collection and carry the project's `project` value. They appear on `/releases` (all releases) and on the matching project landing page.
 
 ### React Islands
 
@@ -155,41 +198,3 @@ import DemoWidget from "../components/ui/DemoWidget.tsx";
 <DemoWidget client:visible />
 ```
 
-`client:visible` means the component hydrates when it scrolls into view — good for demos lower on a page.
-
----
-
-## Content To Publish
-
-- [ ] Unemployment retrospective (nine-section narrative, ~Oct 2025 – Jun 2026)
-- [ ] Sniffies project landing page
-- [ ] Sniffies v1 release announcement
-
----
-
-## Getting Started (when ready to build)
-
-```bash
-npm create astro@latest
-# Choose: Empty project, TypeScript, yes to install deps
-
-# Add React integration
-npx astro add react
-
-# Dev server
-npm run dev
-
-# Build
-npm run build
-```
-
-Vercel deployment: connect the GitHub repo in the Vercel dashboard. Push to `main` → auto-deploy. No config needed for a static Astro site.
-
----
-
-## References
-
-- [Astro Docs](https://docs.astro.build)
-- [Astro Content Collections](https://docs.astro.build/en/guides/content-collections/)
-- [Astro + React](https://docs.astro.build/en/guides/integrations-guide/react/)
-- [Vercel + Astro](https://vercel.com/docs/frameworks/astro)
